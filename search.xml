@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Least Astonishment</title>
+      <link href="/2021/12/31/Least-Astonishment/"/>
+      <url>/2021/12/31/Least-Astonishment/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>最小惊讶（Least Astonishment）原则是好文明</p></blockquote><span id="more"></span><p>在2021年的最后一天，没有写什么年终总结，也没有完成一周后就要提交的NLP大作业，我却在继续瞎折腾这个blog。说起来，起初我只是想给它补充一个RSS订阅的功能而已，但是折腾完了却仍不收手，总是像让它更完美一些，一步到位，以后就直接发布文章就可以了<del>在5月份最一开始折腾这个东西的时候就是这么想的</del>。总的来说，我为博客引入了如下功能或调整：</p><ol type="1"><li>暗黑模式：通过右下角的按钮可以方便地切换页面的黑白风格，且代码的背景色也会对应地进行调整；</li><li>搜索功能：可以快速检索任意文章中的内容；</li><li>RSS订阅及发邮件的入口；</li><li>代码可以通过按钮一键复制；</li><li>Tex公式支持多行公式环境及交叉引用。</li></ol><p>其中，1需要Next主题版本8以上方可支持。然而GitHub上面的next最新只到7.8呀？万般困惑之下，<a href="https://kuroha.vip/hexo/hexo_update.html">一个博客</a>告诉我，next的仓库天天换地址，换了之后还不通知它的老用户：</p><ul><li><p>2014-2017 =&gt; https://github.com/iissnan/hexo-theme-next</p></li><li><p>2018-2019 =&gt; https://github.com/theme-next/hexo-theme-next</p></li><li><p>2020- =&gt; https://github.com/next-theme/hexo-theme-next</p></li></ul><p>特别是后两个，我费了好大的劲才看清楚二者的区别。这种专门为了两个单词的顺序特意搬个家的做法，我看不懂，但大受震撼。</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231181833.png" /></center><p>关键的是，非要另起炉灶也不是不行，但好歹留一个指向新地址的指针啊。<del>你看微软，win11一出变着法子天天催你升级</del>这不禁让我又想到了一个上古的段子：</p><blockquote><p>某人收到了家里的飞鸽传书，通知他今年家里生意不错，因此刚搬了家，但是落款只有一个“爱你的父亲”</p></blockquote><p>很显然，这种做法是违反了最小权限，哦不，最小惊讶原则（Principle of least astonishment， POLA，亦作“principle of least surprise”）的。<a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment">Wikipedia</a>定义它是“系统中的一个组件必须以绝大多数用户期待的方式工作”，是一个适用于用户界面（User Interface，UI）开发或软件设计的原则。不过，POLA其实是一个非常宽泛的概念，可以用在我们生活中的方方面面。通俗来说，如果用户在使用一个东西的时候突然大呼“卧槽！”，“这**什么反人类设计！”，”啊我被雷到了！”之类的，那么他所面对的客体就违反了POLA。例如：</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231184924.png" /></center><p>此外，就算一个东西大抵上没有违背其表现出的功能，但如果它对使用者构成了非常大的困惑，那么它也违背了POLA。这是因为很多情况下困惑和惊讶的语境是共享的。例如，</p><blockquote><p>你是吃错药了吗？（困惑）CET-4居然没有考到100分！（惊讶） ta居然点名要求我赶出别人两倍的工作量！（惊讶）难道是ta觉得我之前做得太少吗？（困惑）</p></blockquote><p>特定到我们日常的UI交互上也是如此。例如，我之前遇到过Windows和小螃蟹的声卡驱动不兼容的问题，导致声音输出不正常。当我运行Windows的疑难解答程序时，它给我的反馈如下：</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231185224.png" /></center><p>当我惊讶于它为什么连不存在冲突的汉语句子都构造不出来的时候，或者是困惑于“音频增强是应该关掉还是打开比较好？”的时候，显然这里的UI就是违背了POLA的。显然，呈现给用户的语素应当是与其上下文一致，而不是冲突的。认识到这点，研究者也产生了一些科研成果（如，DeepIntent: Deep Icon-Behavior Learning for Detecting Intention-Behavior Discrepancy in Mobile Apps // CCS' 19）。这项研究认为，UI中的图标和其近邻的文字一定会共享某种语义。</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231191136.png" /></center><p>以上图为例，定位的文字“location”和图标📍很表达的意思是相近的，甚至是相同的（获取位置）。如果在点击这个按钮后，应用没有获取位置，而是发送了一个SMS短信，那么这个应用就可能存在权限滥用的问题。另一方面，如果“location”旁边是一个📞的图标，本研究就无法应对了。不过，这种情形下用户显然会产生困惑，这不是实践中正常的做法。</p><p>综上，衡量是否满足POLA，应该以是否带来不必要的<strong>学习和理解成本</strong>为准绳。这也是为什么很多人会说，遵循POLA的最好方式，就是在现有基础上渐进式改动。TensorFlow V2就是一个良好的反面教材。</p><p>此外，语言也是如此。这里不是特指某种编程语言（Python 2 VS Python 3？），而就是指我们人类表达、沟通使用的语言。中华上下五千年，汉字虽然经历了多轮迭代进化，从象形字到甲骨文，小篆、隶书楷书，从繁体到简体，但都是比较温和的进化。我们常用的汉字还是局限于一个很小的集合（两三千左右？），但这两三千字就可以不断组合产生新的成语习语，以及新的内涵。随着时代的进步，我们关注的重点只是<strong>有限</strong>的增量，因此大家都乐于并迅速接受。二简字，就又是一个反例。“宣传卩”，“早歺”……还有姥姥家装白糖的袋子上，赫然写着“内苎（内蒙）”，第一次看到时真是惊到了。</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231194956.png" /></center><p>好在汉语博大精深，这种问题最终都修复过来了。不过其他语言，可能就没那么幸运了……</p><blockquote><p>インターネットエクスプローラーナインの新しいグラフィックファンクションとパフォーマンスのインプルーブによって、リアルなエクスペリエンスがリアライズされます。</p></blockquote><blockquote><p>インターネット（internet）エクスプローラー（explorer）ナイン（nine）の新しい（new）グラフィック（graphic）ファンクション（function）とパフォーマンス（performance）のインプルーブ（improve）によって、リアル（real）なエクスペリエンス（experience）がリアライズ（realize）されます。</p></blockquote><blockquote><p>Internet Explorer 9的新图形功能和性能的改善使其实现了逼真的体验。</p></blockquote><p>再读个西方神话：</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231201356.png" /></center><p>现在，我的内心毫无惊讶，心如止水。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 漫谈 </category>
+          
+          <category> 瞎搞 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> 设计准则 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Make Cpp Work with Python</title>
       <link href="/2021/12/29/Make-Cpp-Work-with-Python/"/>
       <url>/2021/12/29/Make-Cpp-Work-with-Python/</url>
