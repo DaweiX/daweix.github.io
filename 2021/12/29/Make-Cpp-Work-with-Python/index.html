@@ -19,13 +19,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"daweix.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"daweix.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Make Cpp Work with Python">
 <meta property="og:url" content="https://daweix.github.io/2021/12/29/Make-Cpp-Work-with-Python/index.html">
 <meta property="og:site_name" content="DaweiX&#39;s Harbor">
-<meta property="og:description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
+<meta property="og:description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png">
@@ -65,9 +65,6 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -82,51 +79,15 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-<nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">2</span></a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
         
@@ -297,50 +258,51 @@
 </blockquote>
 <p>本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。</p>
 <span id="more"></span>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Python 高度封装又非常易用，同时在很多情况下也是进行机器学习等任务的唯一选择。另一方面，如果调教得当，C++则在数据集的读取及预处理上具备性能上的显著优势。将二者作为“联合主演”，融入到一个project中是一个值得考虑的选项。</p>
-<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><p>Python 没什么好说的。对于C++，如果是在Linux平台下，常用的工具是g++ &amp; make，输出的动态库后缀是.so。在Windows下，我使用了Visual Studio - 不得不说相比 <code>apt install make gcc</code>，VS的安装配置痛苦许多，但VS也确实没什么好的替代（不知道为什么，我就是不想用MinGW或者CMake这种跨平台的工具）。</p>
+<h2 id="前言">前言</h2>
+<p>Python 高度封装又非常易用，同时在很多情况下也是进行机器学习等任务的唯一选择。另一方面，如果调教得当，C++则在数据集的读取及预处理上具备性能上的显著优势。将二者作为“联合主演”，融入到一个project中是一个值得考虑的选项。</p>
+<h2 id="开发工具">开发工具</h2>
+<p>Python 没什么好说的。对于C++，如果是在Linux平台下，常用的工具是g++ &amp; make，输出的动态库后缀是.so。在Windows下，我使用了Visual Studio - 不得不说相比 <code>apt install make gcc</code>，VS的安装配置痛苦许多，但VS也确实没什么好的替代（不知道为什么，我就是不想用MinGW或者CMake这种跨平台的工具）。</p>
 <p>因此，这里我们使用VS编译出的供Python调用的C++库也是面向Windows的版本。我安装的<strong>使用C++的桌面开发</strong>组件的最小集合是（VS 2022）：</p>
 <ul>
 <li>MSVC：C++编译器及库</li>
 <li>Windows 10 SDK：包含了一些C++ API在Windows平台的定义与实现（如cstring）。如果未安装，在调用一些NT与POSIX的实现不一样的C++ API时无法顺利编译，提示找不到头文件。</li>
 <li>实时调试器：就是字面意思</li>
 </ul>
-<h2 id="流程及注意事项"><a href="#流程及注意事项" class="headerlink" title="流程及注意事项"></a>流程及注意事项</h2><ol>
-<li>在VS中，新建C++项目，注意以下几条项目属性（项目-属性） <ul>
+<h2 id="流程及注意事项">流程及注意事项</h2>
+<ol type="1">
+<li>在VS中，新建C++项目，注意以下几条项目属性（项目-属性）
+<ul>
 <li>常规-配置类型：动态库（.dll）</li>
 <li>常规-C++语言标准</li>
 <li>高级-目标文件拓展名：.dll</li>
 <li>高级-使用调试库：发布时，选择否</li>
-</ul>
-</li>
-<li>完成C++项目<ul>
-<li>在开放给Python调用的函数前，添加如下装饰符，否则Python无法调用<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure></li>
-<li>无需编写makefile：VS会帮你打理一切！ </li>
-</ul>
-</li>
-<li><p>生成项目</p>
+</ul></li>
+<li>完成C++项目
+<ul>
+<li>在开放给Python调用的函数前，添加如下装饰符，否则Python无法调用 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure></li>
+<li>无需编写makefile：VS会帮你打理一切！</li>
+</ul></li>
+<li>生成项目
 <ul>
 <li>发布时，选择Release</li>
 <li>注意区分x86/x64。特别是当你使用了外部的库时</li>
-</ul>
-</li>
-<li><p>在Python中，通过如下方式引入并调用C++-based content:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(path_to_dll)</span><br><span class="line">cpp.foo()</span><br></pre></td></tr></table></figure>
-</li>
+</ul></li>
+<li>在Python中，通过如下方式引入并调用C++-based content: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(path_to_dll)</span><br><span class="line">cpp.foo()</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>完成！</p>
-<p>…真的会这么顺利吗？</p>
-<p><center>
+<p>...真的会这么顺利吗？</p>
+<center>
 <img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png" class="">
-</center><br>你可能遇到以下问题：</p>
-<font color="red">OSError: [WinError 126] 找不到指定的模块。</font>
-
+</center>
+<p>你可能遇到以下问题：</p>
+<p><font color="red">OSError: [WinError 126] 找不到指定的模块。</font></p>
 <p>什么，找不到？不慌，反手一个 <code>assert os.path.exists(path_to_dll)</code> 。什么？文件路径没错？那是怎么会事呢？</p>
 <p>这时候就要祭出一个VS自带的小工具 <code>dumpbin</code> （需要从VS命令行工具中调用）了。它可以对你要引入的dll进行分析，报告其依赖的其他dll。如黄色框所示，待引入的dll依赖于两个dll。至于其依赖的dll需要到哪里去找？如果你编译时引用了第三方的库（如lib静态库），那么第三方的库可能也提供了dll版本。而像kernel32.dll这类dll是Windows系统提供的，它们一般位于Windows的system32或SysWOW64目录下，将这些依赖复制一份到要引入的dll所在目录即可。</p>
-<p><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png" alt=""></p>
-<p>最后的最后，如何让Python识别到依赖的dll库文件呢？热心网友提供的一种建议是，使用<code>os.chdir</code>切换Python的工作目录到dll目录。然而，这种方式不太优雅，而且可能会导致无法import同一项目下自己写的其他模块。我认为的一种比较好的方式是<strong>临时</strong>修改系统环境变量：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在windows系统中，os.pathsep即为;</span></span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>] += os.pathsep + dll_path		</span><br><span class="line">dll_file = os.path.join(dll_path, <span class="string">&quot;dll_to_import.dll&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> (os.path.exists(dll_file))</span><br><span class="line"><span class="comment"># 传入的是文件名而不是完整路径，因为路径已经在PATH中</span></span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(dll_file)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png" /></p>
+<p>最后的最后，如何让Python识别到依赖的dll库文件呢？热心网友提供的一种建议是，使用<code>os.chdir</code>切换Python的工作目录到dll目录。然而，这种方式不太优雅，而且可能会导致无法import同一项目下自己写的其他模块。我认为的一种比较好的方式是<strong>临时</strong>修改系统环境变量： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在windows系统中，os.pathsep即为;</span></span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>] += os.pathsep + dll_path		</span><br><span class="line">dll_file = os.path.join(dll_path, <span class="string">&quot;dll_to_import.dll&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> (os.path.exists(dll_file))</span><br><span class="line"><span class="comment"># 传入的是文件名而不是完整路径，因为路径已经在PATH中</span></span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(dll_file)</span><br></pre></td></tr></table></figure></p>
 <p>现在应该没有问题了。至于C++怎么写，性能怎么优化……祝你好运！</p>
-<h2 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h2><p>这里有一份<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022">MS的文档</a>，但是说实在的，真的有人用VS写Python吗？还是那句话，特定于某种工具（如这里的VS）或平台、又有替代的方法，可能并不值得花功夫去学。<del>尤其是MS搞的这些东西</del></p>
+<h2 id="其他参考">其他参考</h2>
+<p>这里有一份<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022">MS的文档</a>，但是说实在的，真的有人用VS写Python吗？还是那句话，特定于某种工具（如这里的VS）或平台、又有替代的方法，可能并不值得花功夫去学。<del>尤其是MS搞的这些东西</del></p>
 
     </div>
 
@@ -413,8 +375,6 @@
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -427,7 +387,7 @@
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":false,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
