@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Make Cpp Work with Python</title>
+      <link href="/2021/12/29/Make-Cpp-Work-with-Python/"/>
+      <url>/2021/12/29/Make-Cpp-Work-with-Python/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>C++<del>Python</del>是世界上最<del>难学</del>好的语言！</p></blockquote><p>本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。</p><span id="more"></span><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Python 高度封装又非常易用，同时在很多情况下也是进行机器学习等任务的唯一选择。另一方面，如果调教得当，C++则在数据集的读取及预处理上具备性能上的显著优势。将二者作为“联合主演”，融入到一个project中是一个值得考虑的选项。</p><h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><p>Python 没什么好说的。对于C++，如果是在Linux平台下，常用的工具是g++ &amp; make，输出的动态库后缀是.so。在Windows下，我使用了Visual Studio - 不得不说相比 <code>apt install make gcc</code>，VS的安装配置痛苦许多，但VS也确实没什么好的替代（不知道为什么，我就是不想用MinGW或者CMake这种跨平台的工具）。</p><p>因此，这里我们使用VS编译出的供Python调用的C++库也是面向Windows的版本。我安装的<strong>使用C++的桌面开发</strong>组件的最小集合是（VS 2022）：</p><ul><li>MSVC：C++编译器及库</li><li>Windows 10 SDK：包含了一些C++ API在Windows平台的定义与实现（如cstring）。如果未安装，在调用一些NT与POSIX的实现不一样的C++ API时无法顺利编译，提示找不到头文件。</li><li>实时调试器：就是字面意思</li></ul><h2 id="流程及注意事项"><a href="#流程及注意事项" class="headerlink" title="流程及注意事项"></a>流程及注意事项</h2><ol><li>在VS中，新建C++项目，注意以下几条项目属性（项目-属性） <ul><li>常规-配置类型：动态库（.dll）</li><li>常规-C++语言标准</li><li>高级-目标文件拓展名：.dll</li><li>高级-使用调试库：发布时，选择否</li></ul></li><li>完成C++项目<ul><li>在开放给Python调用的函数前，添加如下装饰符，否则Python无法调用<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure></li><li>无需编写makefile：VS会帮你打理一切！ </li></ul></li><li><p>生成项目</p><ul><li>发布时，选择Release</li><li>注意区分x86/x64。特别是当你使用了外部的库时</li></ul></li><li><p>在Python中，通过如下方式引入并调用C++-based content:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(path_to_dll)</span><br><span class="line">cpp.foo()</span><br></pre></td></tr></table></figure></li></ol><p>完成！</p><p>…真的会这么顺利吗？</p><p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png" class=""></center><br>你可能遇到以下问题：</p><font color="red">OSError: [WinError 126] 找不到指定的模块。</font><p>什么，找不到？不慌，反手一个 <code>assert os.path.exists(path_to_dll)</code> 。什么？文件路径没错？那是怎么会事呢？</p><p>这时候就要祭出一个VS自带的小工具 <code>dumpbin</code> （需要从VS命令行工具中调用）了。它可以对你要引入的dll进行分析，报告其依赖的其他dll。如黄色框所示，待引入的dll依赖于两个dll。至于其依赖的dll需要到哪里去找？如果你编译时引用了第三方的库（如lib静态库），那么第三方的库可能也提供了dll版本。而像kernel32.dll这类dll是Windows系统提供的，它们一般位于Windows的system32或SysWOW64目录下，将这些依赖复制一份到要引入的dll所在目录即可。</p><p><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png" alt=""></p><p>最后的最后，如何让Python识别到依赖的dll库文件呢？热心网友提供的一种建议是，使用<code>os.chdir</code>切换Python的工作目录到dll目录。然而，这种方式不太优雅，而且可能会导致无法import同一项目下自己写的其他模块。我认为的一种比较好的方式是<strong>临时</strong>修改系统环境变量：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在windows系统中，os.pathsep即为;</span></span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>] += os.pathsep + dll_path</span><br><span class="line">dll_file = os.path.join(dll_path, <span class="string">&quot;dll_to_import.dll&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> (os.path.exists(dll_file))</span><br><span class="line"><span class="comment"># 传入的是文件名而不是完整路径，因为路径已经在PATH中</span></span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(dll_file)</span><br></pre></td></tr></table></figure></p><p>现在应该没有问题了。至于C++怎么写，性能怎么优化……祝你好运！</p><h2 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h2><p>这里有一份<a href="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022">MS的文档</a>，但是说实在的，真的有人用VS写Python吗？还是那句话，特定于某种工具（如这里的VS）或平台、又有替代的方法，可能并不值得花功夫去学。<del>尤其是MS搞的这些东西</del></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 环境配置 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Build Your Own (Hexo) Blog</title>
+      <link href="/2021/05/23/Build-Your-Own-Hexo-Blog/"/>
+      <url>/2021/05/23/Build-Your-Own-Hexo-Blog/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>好记性不如烂笔头</p></blockquote><p>某个慵懒的周日，花了半小时建立了一个个人博客。真棒！<del>（后续美化花了好几天）</del></p><span id="more"></span><h2 id="坑总结"><a href="#坑总结" class="headerlink" title="坑总结"></a>坑总结</h2><ul><li>Hexo init的目录名必须与GitHub repo名一致（即<code>xx.GitHub.io</code>）</li><li>所有命令均在站点目录下执行，包括Hexo命令以及npm install等</li></ul><h2 id="不太详细的步骤"><a href="#不太详细的步骤" class="headerlink" title="不太详细的步骤"></a>不太详细的步骤</h2><h3 id="Step-1-环境配置"><a href="#Step-1-环境配置" class="headerlink" title="Step 1: 环境配置"></a>Step 1: 环境配置</h3><p>安装Node.js环境，安装git并配置（用户名、邮箱），配置GitHub（配置SSH密钥，新建public repo<code>xx.GitHub.io</code>）。如果你没配置过上述东东，那么完成了上述配置，所有工作可以说是完成了一大半。</p><h3 id="Step-2：站点搭建"><a href="#Step-2：站点搭建" class="headerlink" title="Step 2：站点搭建"></a>Step 2：站点搭建</h3><p>安装Hexo并初始化。没什么好说的。非要说需要注意什么，那就是把init后面的参数设置为对应的（空）GitHub repo的名字。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init xx.GitHub.io</span><br><span class="line">cd xx.GitHub.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><p>执行完毕后，在<code>_config.yml</code>里配置网站的基本属性，如标题，描述等。详细的配置项请参照<a href="https://hexo.io/" title="" target="_blank">Hexo官方网站</a>。这个网站也可以用来学习Hexo的其他知识。不过，这个网站提供的一些教程或demo也是粗略得可以（比如，Link并不是默认以新tab打开的，需要在<code>[external]</code>那个placeholder那里放个<code>true</code>。慢慢探索吧！）。执行完这步，你可以通过运行本地服务器<code>hexo server</code>或<code>hexo s</code>来启动位于本机4000端口的站点。</p><h3 id="Step-3-发布站点"><a href="#Step-3-发布站点" class="headerlink" title="Step 3 发布站点"></a>Step 3 发布站点</h3><p>还是照着官方doc，修改<code>_config.yml</code>中的Deployment节。随后，在站点目录通过<code>hexo deploy</code>或<code>hexo d</code>命令完成向GitHub的推送。访问<code>xx.GitHub.io</code>，全世界的人都会看到你的个人博客了！<del>我家也通上信息高速路辣！</del></p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231143049.png" class="" width="160" height="160" title="互联网真是太精彩辣"></center><h2 id="其他你可能想做的"><a href="#其他你可能想做的" class="headerlink" title="其他你可能想做的"></a>其他你可能想做的</h2><ul><li>更改站点外观：安装第三方Hexo主题。本站使用的是NexT</li><li>绑定自定义域名：（没钱，懒，所以没经验。想弄自行搜索吧！）</li><li>图床：可以建立另一个GitHub repo作为图床，配合PicGo等工具来实现快速上传与链接获取</li></ul><h2 id="显示数学公式"><a href="#显示数学公式" class="headerlink" title="显示数学公式"></a>显示数学公式</h2><p>As a special reminder, Markdown本身可以通过Tex语法插入公式<del>（通过图片来插入公式的都是异端！）</del>。在VSCode中，也有很多拓展支持解析、预览公式，甚至配合Tex输出正确嵌入公式的HTML或PDF（推荐拓展：Markdown All in One）。然而，为了让Hexo完美支持Tex公式，需要使用其他基于Web的工具包。其中，最流行的是Mathjax。以NexT主题为例，首先在其<code>_config.yml</code>中打开Mathjax，对应的Section名为math。随后，在文档的导言区加入<code>mathjax: true</code>，即可为当前文档启用相关支持，其他没有公式的页面性能不会被影响。</p><p>现在，使用美元/双美元符号括住公式区域，就可以编写公式了。不过，你可能会发现这里对下划线的支持非常不友好，体现在具有嵌套下标、下标内容包含多个字符、具有多个下标等复杂情况。比如下面的公式：</p><script type="math/tex; mode=display">\underset{G}{min}\underset{D}{max}V(D,G)=\mathbb{E}_{x \sim p_\text{data}(x)}[log D(x)]+\mathbb{E}_{z \sim z(z)}</script><p>如果上面是一坨code（或没有任何显示），那么接下来的方法都是无效的，你可以直接跳过了。如果它可以正常显示（可以通过右键进行其他操作），那么为了让你的博客也可以轻松支持这种鬼畜的公式而不必担心错误，那么还是多花几分钟看一下下面的解决方案吧。</p><p>首先，我们需要明确问题。之所以公式环境不会被正常解析，是因为其中的下划线与Markdown默认的下划线（斜体）冲突。为了不影响Tex语法，同时保证更换站点配置后仍能同时正常显示斜体和公式，故首先建议：<strong>在Markdown中斜体用星号，不要用下划线！</strong> 那么接下来我们做的，就是要关闭Markdown的渲染引擎对下划线-斜体的支持。</p><h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>更换一下Hexo的渲染引擎：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure></p><h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>修改<code>\node_modules\kramed\lib\rules\inline.js</code>的两行（就是改俩正则表达式）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*取消对大括号及正斜杠的转义*/</span></span><br><span class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span></span><br><span class="line"><span class="attr">escape</span>: <span class="regexp">/^\\([`*\[\]()#$+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="comment">/*取消对下划线-&gt;斜体的支持*/</span></span><br><span class="line"><span class="comment">/*竖线分隔开的两部分，分别匹配下划线和星号包围*/</span></span><br><span class="line"><span class="comment">//em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br><span class="line">em: <span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br></pre></td></tr></table></figure></p><h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>重启Hexo（hexo clean &amp;&amp; generate）。搞定！你可以尝试通过上面的那坨公式来验证。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 瞎搞 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
