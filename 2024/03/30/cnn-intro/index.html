@@ -19,31 +19,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"daweix.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":6,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
+    <meta name="description" content="To represent the world by general &amp; simple modules.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Make Cpp Work with Python">
-<meta property="og:url" content="https://daweix.github.io/2021/12/29/Make-Cpp-Work-with-Python/index.html">
+<meta property="og:title" content="MIT-何恺明《Learning Deep Representations》笔记">
+<meta property="og:url" content="https://daweix.github.io/2024/03/30/cnn-intro/index.html">
 <meta property="og:site_name" content="DaweiX&#39;s Harbor">
-<meta property="og:description" content="C++Python是世界上最难学好的语言！  本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。">
+<meta property="og:description" content="To represent the world by general &amp; simple modules.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png">
-<meta property="article:published_time" content="2021-12-29T12:19:45.000Z">
-<meta property="article:modified_time" content="2024-02-19T02:29:51.132Z">
+<meta property="article:published_time" content="2024-03-30T02:27:49.000Z">
+<meta property="article:modified_time" content="2024-04-16T10:09:43.188Z">
 <meta property="article:author" content="DaweiX">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="表示学习">
+<meta property="article:tag" content="CNN">
+<meta property="article:tag" content="RNN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png">
 
 
-<link rel="canonical" href="https://daweix.github.io/2021/12/29/Make-Cpp-Work-with-Python/">
+<link rel="canonical" href="https://daweix.github.io/2024/03/30/cnn-intro/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://daweix.github.io/2021/12/29/Make-Cpp-Work-with-Python/","path":"2021/12/29/Make-Cpp-Work-with-Python/","title":"Make Cpp Work with Python"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://daweix.github.io/2024/03/30/cnn-intro/","path":"2024/03/30/cnn-intro/","title":"MIT-何恺明《Learning Deep Representations》笔记"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Make Cpp Work with Python | DaweiX's Harbor</title>
+<title>MIT-何恺明《Learning Deep Representations》笔记 | DaweiX's Harbor</title>
   
 
 
@@ -143,7 +143,10 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">流程及注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">其他参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#deep-learning-represenation-learning"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning &#x3D;
+Represenation Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#from-bad-representations-to-good-ones"><span class="nav-number">2.</span> <span class="nav-text">From bad representations
+to good ones</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#milestones"><span class="nav-number">3.</span> <span class="nav-text">Milestones</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-checklist-of-training-dnn"><span class="nav-number">4.</span> <span class="nav-text">A checklist of training DNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rnn-v.s.-cnn-for-seq-modeling"><span class="nav-number">5.</span> <span class="nav-text">RNN v.s. CNN for seq
+modeling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#similarity"><span class="nav-number">5.1.</span> <span class="nav-text">Similarity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#difference"><span class="nav-number">5.2.</span> <span class="nav-text">Difference</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -207,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://daweix.github.io/2021/12/29/Make-Cpp-Work-with-Python/">
+    <link itemprop="mainEntityOfPage" href="https://daweix.github.io/2024/03/30/cnn-intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/imgs/avatar.gif">
@@ -220,12 +223,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Make Cpp Work with Python | DaweiX's Harbor">
+      <meta itemprop="name" content="MIT-何恺明《Learning Deep Representations》笔记 | DaweiX's Harbor">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Make Cpp Work with Python
+          MIT-何恺明《Learning Deep Representations》笔记
         </h1>
 
         <div class="post-meta-container">
@@ -236,7 +239,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-12-29 20:19:45" itemprop="dateCreated datePublished" datetime="2021-12-29T20:19:45+08:00">2021-12-29</time>
+      <time title="创建时间：2024-03-30 10:27:49" itemprop="dateCreated datePublished" datetime="2024-03-30T10:27:49+08:00">2024-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -244,7 +247,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a>
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
         </span>
     </span>
 
@@ -255,14 +258,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>4.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -272,72 +275,179 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
-<p>C++<del>Python</del>是世界上最<del>难学</del>好的语言！</p>
+    <div class="post-body" itemprop="articleBody"><p>To represent the world by general &amp; simple modules.
+<span id="more"></span></p>
+<h2 id="deep-learning-represenation-learning">Deep Learning =
+Represenation Learning</h2>
+<p>The top conference in deep learning domain, <em>International
+Conference on Learning Representations (ICLR)</em>, is named by
+representation learning.</p>
+<blockquote>
+<p>Representation learning: to represent raw data in different forms
+(e.g., pixels, words, waves, gameboards, DNA...) to solve complex
+problems (by compression, abstraction, conceptualization...).</p>
 </blockquote>
-<p>本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。</p>
-<span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>Python
-高度封装又非常易用，同时在很多情况下也是进行机器学习等任务的唯一选择。另一方面，如果调教得当，C++则在数据集的读取及预处理上具备性能上的显著优势。将二者作为“联合主演”，融入到一个project中是一个值得考虑的选项。</p>
-<h2 id="开发工具">开发工具</h2>
-<p>Python 没什么好说的。对于C++，如果是在Linux平台下，常用的工具是g++
-&amp; make，输出的动态库后缀是.so。在Windows下，我使用了Visual Studio -
-不得不说相比
-<code>apt install make gcc</code>，VS的安装配置痛苦许多，但VS也确实没什么好的替代（不知道为什么，我就是不想用MinGW或者CMake这种跨平台的工具）。</p>
-<p>因此，这里我们使用VS编译出的供Python调用的C++库也是面向Windows的版本。我安装的<strong>使用C++的桌面开发</strong>组件的最小集合是（VS
-2022）：</p>
+<h2 id="from-bad-representations-to-good-ones">From bad representations
+to good ones</h2>
+<p><strong>Go</strong>: Analyze <span
+class="math inline">\(3^{361}\)</span> states? No! <span
+class="math inline">\(\rightarrow\)</span> AlphaGo outperform best human
+players without human knowledge by using better representation.</p>
+<p><strong>Image</strong>: How to represent it?</p>
 <ul>
-<li>MSVC：C++编译器及库</li>
-<li>Windows 10 SDK：包含了一些C++
-API在Windows平台的定义与实现（如cstring）。如果未安装，在调用一些NT与POSIX的实现不一样的C++
-API时无法顺利编译，提示找不到头文件。</li>
-<li>实时调试器：就是字面意思</li>
+<li>Image <span class="math inline">\(\rightarrow\)</span> class</li>
+<li>Image <span class="math inline">\(\rightarrow\)</span> edge <span
+class="math inline">\(\rightarrow\)</span> class</li>
+<li>Image <span class="math inline">\(\rightarrow\)</span> edge <span
+class="math inline">\(\rightarrow\)</span> orientation <span
+class="math inline">\(\rightarrow\)</span> class</li>
+<li>Image <span class="math inline">\(\rightarrow\)</span> edge <span
+class="math inline">\(\rightarrow\)</span> orientation <span
+class="math inline">\(\rightarrow\)</span> histogram <span
+class="math inline">\(\rightarrow\)</span> class</li>
 </ul>
-<h2 id="流程及注意事项">流程及注意事项</h2>
+<p>More and more deeper and robust, but require more and more domain
+knowledge! <span class="math inline">\(\rightarrow\)</span>
+<strong>Feature designing problem</strong> will be extremely difficult
+if we want to define some high level representations.</p>
+<blockquote>
+<p>For example, what is a cat?</p>
+</blockquote>
+<p><strong>Another methodology</strong>: Deep Learning uses general
+modules instead of specialized features, it composes simple modules into
+complex functions. + Build muliple levels of abstractions + Learn by
+back-propagation + Leran from data + Reduce domain knowledge and feature
+engineering</p>
+<p>The research problem is shifted from engineering the features to
+<u>collecting the data that is related to the problem</u>.</p>
+<p>Simple modules used: + locally connect layer: greatly reduce
+trainable paramethers + weight sharing + pooling: produce small feature
+map and achieve local invariance (more abstract representation) + fc
+layers</p>
+<h2 id="milestones">Milestones</h2>
+<ul>
+<li>1989: <strong>LeNet</strong> (<em>LeCun Y et al. Backpropagation
+applied to handwritten zip code recognition.</em>)
+<ul>
+<li>Data: MNIST, small and lack persuasiveness</li>
+<li>Sigmoid</li>
+</ul></li>
+<li>2012: <strong>AlexNet</strong> (<em>Krizhevsky A et al. Imagenet
+classification with deep convolutional neural networks.</em>)
+<ul>
+<li>Scale up data (ImageNet, 1.28 million and 1000 classes)</li>
+<li>Scale up architecture (60 million parameters)</li>
+<li>Introduce data augmentation and dropout to reduce overfitting</li>
+<li>Explore GPU training (data distribution: small batch, model
+distribution: different layers in different GPUs)</li>
+<li>Explore ReLU (avoid zero grad to support deeper network, a
+revolution of deep learning)</li>
+</ul></li>
+<li>2013: <strong>Visualizing</strong> (<em>Zeiler M D, Fergus R.
+Visualizing and understanding convolutional networks.</em>)
+<ul>
+<li>Understand representations by visualization --- to find what input
+can produce the feature</li>
+<li>Set a one-hot feature map and back-prop to pixels</li>
+<li>The single most important discovery in DL revolution: Deep
+representations are transferrable (only fine-tuning and a small set of
+relative data is neededs)</li>
+</ul></li>
+<li>2014: <strong>VGG-Net</strong> (<em>Simonyan K, Zisserman A. Very
+deep convolutional networks for large-scale image recognition.</em>)
+<ul>
+<li>Very deep convnets</li>
+<li>Only has conv (only <span class="math inline">\(3 \times
+3\)</span>), pool and fc</li>
+<li>Deeper is better (elegant design, only more and more <span
+class="math inline">\(3 \times 3\)</span>)</li>
+<li>Not end-to-end training</li>
+</ul></li>
+<li>2014: <strong>GoogLeNet</strong> (<em>Szegedy et al. Going deeper
+with convolutions.</em>) / Inception (<em>Szegedy et al. Rethinking the
+inception architecture for computer vision.</em>)
+<ul>
+<li>Deep and economical ConvNets</li>
+<li><span class="math inline">\(1 \times 1\)</span> shortcut</li>
+<li>Very lots of variants</li>
+</ul></li>
+</ul>
+<p>Difficulties of going deeper:</p>
+<p>Forward:</p>
+<p><span
+class="math display">\[Var[y]=\prod_{d}n_{d}Var[w_d]Var[x].\]</span></p>
+<p>Backward:</p>
+<p><span class="math display">\[Var[\frac{\partial \epsilon}{\partial
+x}]=\prod_{d}m_{d}Var[w_d]Var[\frac{\partial \epsilon}{\partial
+y}].\]</span></p>
+<p>Exploding(factor&gt;1)/vanishing(factor&lt;1) signals accumulate in
+propagation. Signal variance should be kept.</p>
+<ul>
+<li>2015: <strong>Network initialization</strong>
+<ul>
+<li>Xavier (to set the scaling factor as 1 for every layer)</li>
+<li>Kaiming initialization: <span class="math inline">\(\times
+0.5\)</span> (works for ReLU, <em>He K et al. Delving deep into
+rectifiers: Surpassing human-level performance on imagenet
+classification.</em>)</li>
+<li>Norm modules applied to layers (another simple but general module.
+<em>Ioffe S, Szegedy C. Batch normalization: Accelerating deep network
+training by reducing internal covariate shift.</em>) Given by: <span
+class="math inline">\(\hat{x}=\frac{x-E[x]}{\sqrt{Var[x]}}\)</span> and
+<span class="math inline">\(y=a\hat{x}+b\)</span>. Normalization modules
+can
 <ol type="1">
-<li>在VS中，新建C++项目，注意以下几条项目属性（项目-属性）
-<ul>
-<li>常规-配置类型：动态库（.dll）</li>
-<li>常规-C++语言标准</li>
-<li>高级-目标文件拓展名：.dll</li>
-<li>高级-使用调试库：发布时，选择否</li>
+<li>enable models for training (otherwise it may be not trainable)</li>
+<li>speed up convergence</li>
+<li>improve accuracy</li>
+</ol></li>
 </ul></li>
-<li>完成C++项目
+</ul>
+<p>Although we have good init and norm, NN still degrades after 20
+layers, but not due to overfitting. It just becomes hard to train.</p>
 <ul>
-<li>在开放给Python调用的函数前，添加如下装饰符，否则Python无法调用
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure></li>
-<li>无需编写makefile：VS会帮你打理一切！</li>
-</ul></li>
-<li>生成项目
+<li>2015: <strong>ResNet</strong> (<em>He K et al. Deep residual
+learning for image recognition.</em>)
 <ul>
-<li>发布时，选择Release</li>
-<li>注意区分x86/x64。特别是当你使用了外部的库时</li>
+<li>Enable networks with hundreds of layers by identify shortcuts <span
+class="math display">\[H(x)=F(x)+x,\]</span> where the last <span
+class="math inline">\(x\)</span> represents for "identity mapping"
+(恒等映射).</li>
+<li>Idea: Encourage building a block to make small, conservative and
+incremental changes.</li>
+<li>New generic module</li>
 </ul></li>
-<li>在Python中，通过如下方式引入并调用C++-based content:
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(path_to_dll)</span><br><span class="line">cpp.foo()</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>完成！</p>
-<p>...真的会这么顺利吗？</p>
-<center>
-<img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png" class="">
-</center>
-<p>你可能遇到以下问题：</p>
-<p><font color="red">OSError: [WinError 126]
-找不到指定的模块。</font></p>
-<p>什么，找不到？不慌，反手一个
-<code>assert os.path.exists(path_to_dll)</code>
-。什么？文件路径没错？那是怎么会事呢？</p>
-<p>这时候就要祭出一个VS自带的小工具 <code>dumpbin</code>
-（需要从VS命令行工具中调用）了。它可以对你要引入的dll进行分析，报告其依赖的其他dll。如黄色框所示，待引入的dll依赖于两个dll。至于其依赖的dll需要到哪里去找？如果你编译时引用了第三方的库（如lib静态库），那么第三方的库可能也提供了dll版本。而像kernel32.dll这类dll是Windows系统提供的，它们一般位于Windows的system32或SysWOW64目录下，将这些依赖复制一份到要引入的dll所在目录即可。</p>
-<p><img
-src="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png" /></p>
-<p>最后的最后，如何让Python识别到依赖的dll库文件呢？热心网友提供的一种建议是，使用<code>os.chdir</code>切换Python的工作目录到dll目录。然而，这种方式不太优雅，而且可能会导致无法import同一项目下自己写的其他模块。我认为的一种比较好的方式是<strong>临时</strong>修改系统环境变量：
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在windows系统中，os.pathsep即为;</span></span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>] += os.pathsep + dll_path    </span><br><span class="line">dll_file = os.path.join(dll_path, <span class="string">&quot;dll_to_import.dll&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> (os.path.exists(dll_file))</span><br><span class="line"><span class="comment"># 传入的是文件名而不是完整路径，因为路径已经在PATH中</span></span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(dll_file)</span><br></pre></td></tr></table></figure></p>
-<p>现在应该没有问题了。至于C++怎么写，性能怎么优化……祝你好运！</p>
-<h2 id="其他参考">其他参考</h2>
-<p>这里有一份<a
-target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022">MS的文档</a>，但是说实在的，真的有人用VS写Python吗？还是那句话，特定于某种工具（如这里的VS）或平台、又有替代的方法，可能并不值得花功夫去学。<del>尤其是MS搞的这些东西</del></p>
+</ul>
+<h2 id="a-checklist-of-training-dnn">A checklist of training DNN</h2>
+<p>All about "healthy" signal propagation!</p>
+<ul>
+<li>ReLU</li>
+<li>Init</li>
+<li>Norm</li>
+<li>Res</li>
+</ul>
+<h2 id="rnn-v.s.-cnn-for-seq-modeling">RNN v.s. CNN for seq
+modeling</h2>
+<h3 id="similarity">Similarity</h3>
+<ul>
+<li>Weight-sharing (across time dimension)</li>
+<li>Locally-connected</li>
+<li>We can again enjoy benefits from common DL methodologies (e.g.,
+ResNet)</li>
+</ul>
+<h3 id="difference">Difference</h3>
+<ul>
+<li>RNN uses full context to present the last state, it is not
+feedforward and not efficient on GPU (to get the final results, we
+should wait for all the hidden state computations finished).</li>
+<li>CNN only use limited context and hence be feedforward.</li>
+</ul>
+<p>In <strong>Attention</strong> mechanism, every node can see every
+other node (full context), it is also feedforward. So we have
+Transformer (<em>Attention is all you need</em>) in 2017, then GPT
+(where transfer learning paradigm is still widely used), AlphaFold and
+Vision Transformer (ViT, seqs of image patches).</p>
+<p>The Video: <div class="video-container"><iframe src="https://www.youtube.com/embed/D_jt-xO_RmI" frameborder="0" loading="lazy" allowfullscreen></iframe></div></p>
 
     </div>
 
@@ -347,22 +457,21 @@ target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/visualstud
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"># Python</a>
-              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0/" rel="tag"># 表示学习</a>
+              <a href="/tags/CNN/" rel="tag"># CNN</a>
+              <a href="/tags/RNN/" rel="tag"># RNN</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/05/23/Build-Your-Own-Hexo-Blog/" rel="prev" title="Build Your Own (Hexo) Blog">
-                  <i class="fa fa-angle-left"></i> Build Your Own (Hexo) Blog
+                <a href="/2024/03/07/By-Talk-Learning/" rel="prev" title="闲话“人菜瘾大”">
+                  <i class="fa fa-angle-left"></i> 闲话“人菜瘾大”
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/31/Least-Astonishment/" rel="next" title="Least Astonishment">
-                  Least Astonishment <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -441,7 +550,7 @@ target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/visualstud
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
@@ -467,7 +576,7 @@ darkmode.showWidget();
 </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"daweixs","repo":"review","client_id":"0ddc8d59ad683da82541","client_secret":"c62d66a5dd78f3f4522afe3e62d11427d3077830","admin_user":"daweixs","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"ce54db974b81c93effbf173ba1846be7"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"daweixs","repo":"review","client_id":"0ddc8d59ad683da82541","client_secret":"c62d66a5dd78f3f4522afe3e62d11427d3077830","admin_user":"daweixs","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"54c0db1e54048a0c651270d861ecabb7"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
