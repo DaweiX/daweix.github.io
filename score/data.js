@@ -50,7 +50,8 @@ class DataHandler {
       new Sheet("洋娃娃的梦", "SD", "C", "m"),
       new Sheet("estudio de concierto", "SD", "C", "h"),
       new Sheet("estudio de concierto No.2", "SD", "C", "h"),
-      new Sheet("Memories of the Eternal Oasis", "SD", "A", "m")
+      new Sheet("Memories of the Eternal Oasis", "SD", "A", "m"),
+      new Sheet("Grande Ouverture", "SD", "C", "h")
     ].sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
