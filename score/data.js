@@ -47,9 +47,13 @@ class DataHandler {
       new Sheet("Misty Eyes", "SD", "F", "e"),
       new Sheet("暁の車", "SD", "A", "e"),
       new Sheet("La Catedral", "SD", "C", "h"),
-      new Sheet("洋娃娃的梦", "SD", "C", "m"),
+      new Sheet("洋娃娃的梦", "SD", "C", "e"),
       new Sheet("estudio de concierto", "SD", "C", "h"),
-      new Sheet("estudio de concierto No.2", "SD", "C", "h")
+      new Sheet("estudio de concierto No.2", "SD", "C", "h"),
+      new Sheet("Memories of the Eternal Oasis", "SD", "A", "m"),
+      new Sheet("Asturias", "SD", "C", "h"),
+      new Sheet("Granada", "SD", "C", "h"),
+      new Sheet("Recuerdos de la Alhambra", "SD", "C", "h")
     ].sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
