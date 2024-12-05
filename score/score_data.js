@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const tunes = {
     "DD": "Drop D (DADGBE)",
     "SD": "Standard (EADGBE)",
-    "OD": "Open D (DADF#AD)"
+    "OD": "Open D (DADF#AD)",
+    "OC": "Open C (CGDGAD)"
   }
 
   const genres = {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
       this._filter_vs = []
       this._allSheets = [
         new Sheet("BWV 1004", "DD", "C", "h"),
+        new Sheet("BWV 1006", "SD", "C", "h"),
         new Sheet("BWV 846", "SD", "C", "e"),
         new Sheet("Canon In D", "DD", "C", "e"),
         new Sheet("Nocturne In E", "SD", "C", "m"),
@@ -56,7 +58,11 @@ document.addEventListener('DOMContentLoaded', function () {
         new Sheet("Asturias", "SD", "C", "h"),
         new Sheet("Granada", "SD", "C", "h"),
         new Sheet("HWV 432", "SD", "C", "h"),
-        new Sheet("Lobos Prelude No.1", "SD", "C", "m")
+        new Sheet("Lobos Prelude No.1", "SD", "C", "m"),
+        new Sheet("鲸", "OD", "F", "e"),
+        new Sheet("恋人たちの神話", "SD", "F", "e"),
+        new Sheet("木もれ阳", "SD", "F", "e"),
+        new Sheet("流行の云", "OC", "F", "e")
       ].sort((a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;

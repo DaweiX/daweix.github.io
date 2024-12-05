@@ -2755,3 +2755,8 @@ header.header {
     padding: 10px 12px;
   }
 }
+.darkmode-toggle {
+  border-radius: 0 !important;
+  width: 32px !important;
+  height: 32px !important;
+}

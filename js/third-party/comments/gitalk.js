@@ -16,7 +16,7 @@ document.addEventListener('page:loaded', () => {
         admin              : [CONFIG.gitalk.admin_user],
         id                 : CONFIG.gitalk.path_md5,
         proxy              : CONFIG.gitalk.proxy,
-        language           : CONFIG.gitalk.language || window.navigator.language,
+        language           : CONFIG.gitalk.language || CONFIG.language,
         distractionFreeMode: CONFIG.gitalk.distraction_free_mode
       });
       gitalk.render(document.querySelector('.gitalk-container'));
