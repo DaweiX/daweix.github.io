@@ -1,0 +1,88 @@
+p {
+    font-size: 12pt;
+    line-height: 1.2;
+}
+
+li {
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+.head {
+    font-variant: small-caps;
+}
+
+.post-header {
+    margin-bottom: 16pt !important
+}
+
+.inline-img {
+    height: 2ex;
+    margin-left: 4px;
+    display: inline !important;
+    vertical-align: middle;
+    margin-bottom: 0 !important;
+}
+
+.banner-img {
+    height: 3.2ex;
+    width: 3.2ex;
+    margin-right: 8px;
+    display: inline !important;
+    vertical-align: middle;
+    color: var(--body-bg-color) !important;
+}
+
+.section-header {
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Carlito, system-ui;
+    vertical-align: middle;
+}
+
+svg {
+    fill: var(--text-color)
+}
+
+.sep {
+    margin: 0 0 12pt 0;
+}
+
+em {
+    text-decoration: underline;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration-thickness: 0.5pt;
+}
+
+.time {
+    font-size: 10pt;
+    text-align: center;
+}
+
+.roman-text {
+    font-family: 'Times New Roman', serif;
+}
+
+.site-author {
+    display: none
+}
+
+.ltxt {
+    color: var(--link-color);
+}
+
+.top-btn {
+    margin-left: 12pt;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    font-size: medium;
+    font-weight: bold;
+    border: 1px solid var(--link-color);
+    cursor: pointer;
+}
+
+.icon-en {
+    display: none;
+}

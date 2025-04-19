@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>DaweiX&#39;s Harbor</title>
+  
+  
+  <link href="https://daweix.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://daweix.github.io/"/>
+  <updated>2025-04-19T11:25:39.339Z</updated>
+  <id>https://daweix.github.io/</id>
+  
+  <author>
+    <name>DaweiX</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MIT-何恺明《Learning Deep Representations》笔记</title>
+    <link href="https://daweix.github.io/2024/03/cnn-intro/"/>
+    <id>https://daweix.github.io/2024/03/cnn-intro/</id>
+    <published>2024-03-30T02:27:49.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<p>To represent the world by general &amp; simple modules.<span id="more"></span></p><h2 id="deep-learning-represenation-learning">Deep Learning =Represenation Learning</h2><p>The top conference in deep learning domain, <em>InternationalConference on Learning Representations (ICLR)</em>, is named byrepresentation learning.</p><blockquote><p>Representation learning: to represent raw data in different forms(e.g., pixels, words, waves, gameboards, DNA...) to solve complexproblems (by compression, abstraction, conceptualization...).</p></blockquote><h2 id="from-bad-representations-to-good-ones">From bad representationsto good ones</h2><p><strong>Go</strong>: Analyze <spanclass="math inline">\(3^{361}\)</span> states? No! <spanclass="math inline">\(\rightarrow\)</span> AlphaGo outperform best humanplayers without human knowledge by using better representation.</p><p><strong>Image</strong>: How to represent it?</p><ul><li>Image <span class="math inline">\(\rightarrow\)</span> class</li><li>Image <span class="math inline">\(\rightarrow\)</span> edge <spanclass="math inline">\(\rightarrow\)</span> class</li><li>Image <span class="math inline">\(\rightarrow\)</span> edge <spanclass="math inline">\(\rightarrow\)</span> orientation <spanclass="math inline">\(\rightarrow\)</span> class</li><li>Image <span class="math inline">\(\rightarrow\)</span> edge <spanclass="math inline">\(\rightarrow\)</span> orientation <spanclass="math inline">\(\rightarrow\)</span> histogram <spanclass="math inline">\(\rightarrow\)</span> class</li></ul><p>More and more deeper and robust, but require more and more domainknowledge! <span class="math inline">\(\rightarrow\)</span><strong>Feature designing problem</strong> will be extremely difficultif we want to define some high level representations.</p><blockquote><p>For example, what is a cat?</p></blockquote><p><strong>Another methodology</strong>: Deep Learning uses generalmodules instead of specialized features, it composes simple modules intocomplex functions.</p><ul><li>Build muliple levels of abstractions</li><li>Learn by back-propagation</li><li>Leran from data</li><li>Reduce domain knowledge and feature engineering</li></ul><p>The research problem is shifted from engineering the features to<u>collecting the data that is related to the problem</u>.</p><p>Simple modules used:</p><ul><li>locally connect layer: greatly reduce trainable paramethers</li><li>weight sharing</li><li>pooling: produce small feature map and achieve local invariance(more abstract representation)</li><li>fc layers</li></ul><h2 id="milestones">Milestones</h2><ul><li>1989: <strong>LeNet</strong> (<em>LeCun Y et al. Backpropagationapplied to handwritten zip code recognition.</em>)<ul><li>Data: MNIST, small and lack persuasiveness</li><li>Sigmoid</li></ul></li><li>2012: <strong>AlexNet</strong> (<em>Krizhevsky A et al. Imagenetclassification with deep convolutional neural networks.</em>)<ul><li>Scale up data (ImageNet, 1.28 million and 1000 classes)</li><li>Scale up architecture (60 million parameters)</li><li>Introduce data augmentation and dropout to reduce overfitting</li><li>Explore GPU training (data distribution: small batch, modeldistribution: different layers in different GPUs)</li><li>Explore ReLU (avoid zero grad to support deeper network, arevolution of deep learning)</li></ul></li><li>2013: <strong>Visualizing</strong> (<em>Zeiler M D, Fergus R.Visualizing and understanding convolutional networks.</em>)<ul><li>Understand representations by visualization --- to find what inputcan produce the feature</li><li>Set a one-hot feature map and back-prop to pixels</li><li>The single most important discovery in DL revolution: Deeprepresentations are transferrable (only fine-tuning and a small set ofrelative data is neededs)</li></ul></li><li>2014: <strong>VGG-Net</strong> (<em>Simonyan K, Zisserman A. Verydeep convolutional networks for large-scale image recognition.</em>)<ul><li>Very deep convnets</li><li>Only has conv (only <span class="math inline">\(3 \times3\)</span>), pool and fc</li><li>Deeper is better (elegant design, only more and more <spanclass="math inline">\(3 \times 3\)</span>)</li><li>Not end-to-end training</li></ul></li><li>2014: <strong>GoogLeNet</strong> (<em>Szegedy et al. Going deeperwith convolutions.</em>) / Inception (<em>Szegedy et al. Rethinking theinception architecture for computer vision.</em>)<ul><li>Deep and economical ConvNets</li><li><span class="math inline">\(1 \times 1\)</span> shortcut</li><li>Very lots of variants</li></ul></li></ul><p>Difficulties of going deeper:</p><p>Forward:</p><p><spanclass="math display">\[Var[y]=\prod_{d}n_{d}Var[w_d]Var[x].\]</span></p><p>Backward:</p><p><span class="math display">\[Var[\frac{\partial \epsilon}{\partialx}]=\prod_{d}m_{d}Var[w_d]Var[\frac{\partial \epsilon}{\partialy}].\]</span></p><p>Exploding(factor&gt;1)/vanishing(factor&lt;1) signals accumulate inpropagation. Signal variance should be kept.</p><ul><li>2015: <strong>Network initialization</strong><ul><li>Xavier (to set the scaling factor as 1 for every layer)</li><li>Kaiming initialization: <span class="math inline">\(\times0.5\)</span> (works for ReLU, <em>He K et al. Delving deep intorectifiers: Surpassing human-level performance on imagenetclassification.</em>)</li><li>Norm modules applied to layers (another simple but general module.<em>Ioffe S, Szegedy C. Batch normalization: Accelerating deep networktraining by reducing internal covariate shift.</em>) Given by: <spanclass="math inline">\(\hat{x}=\frac{x-E[x]}{\sqrt{Var[x]}}\)</span> and<span class="math inline">\(y=a\hat{x}+b\)</span>. Normalization modulescan<ol type="1"><li>enable models for training (otherwise it may be not trainable)</li><li>speed up convergence</li><li>improve accuracy</li></ol></li></ul></li></ul><p>Although we have good init and norm, NN still degrades after 20layers, but not due to overfitting. It just becomes hard to train.</p><ul><li>2015: <strong>ResNet</strong> (<em>He K et al. Deep residuallearning for image recognition.</em>)<ul><li>Enable networks with hundreds of layers by identify shortcuts <spanclass="math display">\[H(x)=F(x)+x,\]</span> where the last <spanclass="math inline">\(x\)</span> represents for "identity mapping"(恒等映射).</li><li>Idea: Encourage building a block to make small, conservative andincremental changes.</li><li>New generic module</li></ul></li></ul><h2 id="a-checklist-of-training-dnn">A checklist of training DNN</h2><p>All about "healthy" signal propagation!</p><ul><li>ReLU</li><li>Init</li><li>Norm</li><li>Res</li></ul><h2 id="rnn-v.s.-cnn-for-seq-modeling">RNN v.s. CNN for seqmodeling</h2><h3 id="similarity">Similarity</h3><ul><li>Weight-sharing (across time dimension)</li><li>Locally-connected</li><li>We can again enjoy benefits from common DL methodologies (e.g.,ResNet)</li></ul><h3 id="difference">Difference</h3><ul><li>RNN uses full context to present the last state, it is notfeedforward and not efficient on GPU (to get the final results, weshould wait for all the hidden state computations finished).</li><li>CNN only use limited context and hence be feedforward.</li></ul><p>In <strong>Attention</strong> mechanism, every node can see everyother node (full context), it is also feedforward. So we haveTransformer (<em>Attention is all you need</em>) in 2017, then GPT(where transfer learning paradigm is still widely used), AlphaFold andVision Transformer (ViT, seqs of image patches).</p><p>The Video: <div class="video-container"><iframe src="https://www.youtube.com/embed/D_jt-xO_RmI" frameborder="0" loading="lazy" allowfullscreen></iframe></div></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;To represent the world by general &amp;amp; simple modules.</summary>
+    
+    
+    
+    <category term="课程笔记" scheme="https://daweix.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="深度学习" scheme="https://daweix.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="表示学习" scheme="https://daweix.github.io/tags/%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="CNN" scheme="https://daweix.github.io/tags/CNN/"/>
+    
+    <category term="RNN" scheme="https://daweix.github.io/tags/RNN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>闲话“人菜瘾大”</title>
+    <link href="https://daweix.github.io/2024/03/By-Talk-Learning/"/>
+    <id>https://daweix.github.io/2024/03/By-Talk-Learning/</id>
+    <published>2024-03-07T07:57:41.000Z</published>
+    <updated>2025-04-19T11:25:39.338Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于我来说，“人菜瘾大”是一种难得的优良品质。 <span id="more"></span></p><p>“人菜瘾大”这个词产生于网络竞技领域，特指一些玩家技术非常一般然而又忍不住一局败北后再试亿局。这个词通常贬义味道十足，用来形容一些人能力水平有限却不自知，甚至不断重复“坑队友”。这个词也常常被用作玩家们的自嘲。不过我觉得可以从两方面重构这个词。</p><h2 id="承认客观上的菜">承认客观上的“菜”</h2><p>常见的用法还有在其后追加一个名词，如“菜鸟”、“菜鸡”、“彩笔”、“菜狗”等。这几个词在我看来都没有特别强的对个人的攻击性，例如团战中感慨“我的队友是个彩笔”，更多还是对其实力不足的一种直接感慨，意味其实和“我的队友不熟悉玩法/打法偏保守”大差不差。多少人接触、学习编程又何尝不是从“菜鸟教程”开始的？而“菜狗”这个词更多用于自嘲，甚至衍生出了表情包。对我自己来说，如果被别人说菜，我是不会感觉受到冒犯的——因为我确实了解自己的水平，距离卓越、顶峰，还是有不能忽略的物理距离在。郭德纲说了几十年相声一直稳定于“相声界的小学生”的自我定位，这当然是过谦。不过，虽然在学校里呆的时间越来越久，我反而觉得自己在所关注的领域里的“学历”愈发倒退。所谓“逆水行舟，不进则退”，新的技术不断井喷，科技变革的速度新一轮的指数增长在冠病流行后可能才刚刚开始。在不断变化的纷繁世界中，需要不断锚定更新自己的定位。定位不准，伤害到他人（即“坑队友”）自不必说，自己也会变成别人眼中的笑话。这个时代教授专家、布道者、人生导师太多了，“巨星”比天上的星星都多，洗去浮华都是一地鸡毛。</p><p>与其给自己添加既不必要也不实际的尊贵感与优越性，站在虚幻的空中楼阁上指点江山，还不如实事求是、把别人放在和自己对等的位置。菜只是相对的，玩得多了就算思路和游戏理解还是跟不上，退出游戏再开一把的速度总归也会越来越熟练。菜但不气急败坏，不砸电脑，不拔网线，不甩锅队友，是为“不卑”；不觉得其他人比自己菜，怀着一颗小心谨慎的态度认识了解他人的长处，不擅自给别人“贴标签”、不热衷给自己“架高台”，是为“不亢”。人人何尝不都是菜鸡，人人又何尝不都是大佬？不卑不亢，是好的自我修养。</p><h2 id="坚守主观上的瘾">坚守主观上的“瘾”</h2><p>认识到学海无涯固然可贵，但在承认不足的同时还能怀着一腔热情（哪怕是磕磕绊绊地）坚持下去同样难得。所谓“靡不有初，鲜克有终”，“入坑”只是一个开始，“入坑”后纵使在PVP竞技场被压一头，只要不“弃坑”，那游戏总归是可以进行下去的，我们总能从游戏中得到乐趣。</p><p>这种乐趣可能不全是碾压平推的“爽局”带来的，也可能是希望渺茫但却柳暗花明转危为安、不按常理剑走偏锋出奇制胜带来的。然而，这些的前提都是一直坚持下去——虽然我们大多数人可能不会遇到bug般的所谓“命运转折”（比如理塘丁真）、胜局的概率变化相对平缓，但局数多了，就算菜到胜率微小，只要其不为零，那么一次成功事件都没遇到的概率总归是降的。正所谓“生活虐我千百遍，我待生活如初恋”。这一点很难做到，总之继续努力吧。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;对于我来说，“人菜瘾大”是一种难得的优良品质。</summary>
+    
+    
+    
+    <category term="杂谈" scheme="https://daweix.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="感悟" scheme="https://daweix.github.io/tags/%E6%84%9F%E6%82%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>观影：《あゝ海軍》</title>
+    <link href="https://daweix.github.io/2024/02/movie-akaigun/"/>
+    <id>https://daweix.github.io/2024/02/movie-akaigun/</id>
+    <published>2024-02-21T14:15:05.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>“好！很有精神！”</p></blockquote><span id="more"></span><p>这部电影于1969年在日本上映，两年后引入中国作为“内参片”供小范围“批判”之用。影片主要讲述了主角乡下青年平田一郎报考海军学校，接受训练，以优异成绩毕业后参加太平洋战争，历经朋友下属战死之后又回到学校当教官，最后再返回战场的故事。这部122分钟的电影对于我来说，全篇都在回答一个问题：“为什么日本要对外战争？”然而，到最终电影也没给出我们答案——或者说，没有答案本身就是一种答案。</p><p>让我们看看主角平田的人生轨迹。平田在一个贫困的单亲家庭中成长，其志向是考上帝大，成为一名政治家。然而他为了节省费用而同时报考的江田岛海军学校不允许退学，因此他命运的齿轮开始转动——其一生注定要与军队捆绑在一起。这里有人认为他即使成功退学，也无力支付高中的学费，无法实现自己的初心。然而，他家庭的贫困是和二战前日本集中力量备战分不开的。可以说在那种国家意志和社会氛围下，会有千千万万的青壮年因为各种原因投身军队并一心备战，平田只是一个缩影。</p><p>军校的校长对和德意轴心联盟、向英美宣战等国家行为抱持消极态度，平田应该也有这种想法。他还是不习惯军人的言行，好在有对后辈“温柔体贴”的先辈们予以“精神注入”，只用了短短一两年工夫，平田就转变为一个狂热的战争后备军。甚至接到母亲病危的电报后第一时间拒绝返乡看望，真正地把自己的身体和灵魂都交给了军队，“军队就是养我的父母”。</p><p>以第一名的成绩毕业后，平田参加了多场战斗（<del>影片改名为《啊，空军！》</del>），上演了多场“抗美神剧”，美国的地狱猫飞机在零式战机面前就像是高空中的气球，一碰就炸。然而，他身边的战友和部下还是一个个离他而去。这里面着重提到了他的发小本多。本多是一个陆军马鹿，女朋友由于家境贫困上京后投身服务业，被他发现后跳楼自尽。在人生遭遇挫折后，本多的选择是在中国东北的战场上发泄。虽然影片没有给更多的镜头，但我们不难想象出他作为一个残暴的侵略者的形象。本多最终战死，留给平田一支笔作为纪念。</p><p>本多只是电影的配角，然而在我看来，他的作用十分关键，不逊于做主角的平田。在他身上，生活中充满个人感情的青年人和一个战场上的冷面杀手的冲突尤为明显。战争给他带来的事实上只有创伤——亲密的人都直接或间接因战事而死，吃一顿白米饭都成为奢求。他的人生完全谈不上圆满，然而他在不断遭受痛苦的过程中根本不能想清楚带来这一切的根源——战争，以及自己到底是为何而战。这些问题就像是脑子中的一团墨，凝成浓烈的黑，却又化不开。本多头脑简单尚且如此，天资聪颖的平田在浸淫军队后亦变得如此。他可以面无表情接过象征最高荣誉的授剑，但是他已经很难再作为一个具有情感的正常人去思考。平田之所以从军后两次拒绝地主家小姐的表白，就是因为内心已经认识到并接受了自己不能再作为正常人生活的现实。</p><p>在那个特殊的年代，日本像本多平田这样被磨平了人伦情感的人才是绝大多数。剧中一个换新彩笔绘画的平田下属代表的是那些尚且存留较多个人情感、向个人生活发起反抗的年轻人。然而这类人终究力量薄弱，不堪时代大潮的一击，速速地都去领了盒饭下线了。这类人如雪花般逝去，在平田的心中也只是激起了一点点涟漪而已。他心感惋惜，但心中的意志信仰不会撼动分毫。画家的母亲说儿子是为国捐躯，她很欣慰，平田也没有说什么。这两个人都可怜，又可恨地被蒙在鼓里，相比画家母亲，平田多认识到的也无非是这类牺牲是日本让他们去送死导致的罢了，也谈不上高明。</p><p>从战场下来任教后，心灰意懒的平田复刻了心灰意懒的本多，将个人的郁结发泄在了学生身上，相比自己当年的先辈有过之而无不及。离开学校调往最后的战场前，才受到校长的点拨，认识到（或者说承认）日军必败，将来需要的不是战争人才，而是投身建设的人才。他破天荒请学生吃饭喝酒，最后把本多的笔留给了能看到当年自己影子的那个学生，勉励后者努力学习。影片在夕阳中离开母校、孤身赴死的平田的镜头中结束。</p><p>作为一部日本自己拍的电影，据说该片在日本左右翼势力中均得到了受众。关键的原因是本片明确讲述了失利与战败对日本带来的打击。然而，该片反不反战这点可能存在一些争议，不同立场的观者可能会有截然相反的看法。我觉得这部电影本身是没有预设太多滤镜的，更多还是在借适当的虚构来反映现实。回到最初“为什么日本要对外战争？”的问题，片中的人物没有一个给出回答，我觉得本身就说明了问题。抛开战争的原始动机，战争的合理性也无从谈起，而没有合理性的战争自然是应当为所有有良知和人性的人们所反对的。至于战争的原始动机这个对于日本人自己比较敏感的问题，本片选择尽力弱化、避而不谈，从导演的角度看是很聪明的做法。从电影本身的角度来说，我认为这是一部好电影。然而，只限制在本片范畴内的讨论，其意义却是十分有限的。本片只是提供了一种从日本普通百姓出发的视角，这种视角只是一个引子、一种补充、一条启发，仅此而已。</p><p>平田留给学生一支笔，劝勉他努力学习文化知识，最终的目的还是服务于建设“日本”这个国家的概念罢了。对于影片中出场的角色，战争，抑或是学习，只是一种手段。弃武从文只是一种妥协，不代表日本从野蛮走向文明，不代表新时代的开始。平田落幕了，历史仍未改变。一种无奈感油然而生。</p><p>注：本影评写完后，读了首发于1971年7月14日《光明日报》的《揭穿佐藤政府搜罗炮灰的骗局——评日本反动影片&lt;啊，海军&gt;》（作者：陶第文）。虽然我认为其中可能有一些过度解读之处，但仍是一篇富有条理、酣畅淋漓的好文章。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;“好！很有精神！”&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="观影" scheme="https://daweix.github.io/categories/%E8%A7%82%E5%BD%B1/"/>
+    
+    
+    <category term="日本" scheme="https://daweix.github.io/tags/%E6%97%A5%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图表示学习方法概述</title>
+    <link href="https://daweix.github.io/2022/10/gnn-graph-represent/"/>
+    <id>https://daweix.github.io/2022/10/gnn-graph-represent/</id>
+    <published>2022-10-18T03:27:15.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<p>图表示学习将稀疏的图数据表征为稠密的较低维向量以用于后续任务。例如，在基于“用户-商品”二部图的推荐系统两侧分别补充用户与商品的异构图信息，并利用GNN来捕捉用户与商品间的高阶关联[1]。<span id="more"></span></p><h2 id="基本定义">基本定义</h2><ul><li>图节点数量为<spanclass="math inline">\(N\)</span>，每个节点的特征向量长度为<spanclass="math inline">\(F\)</span></li><li>邻接矩阵<span class="math inline">\(A \in \mathbb{R}^{N \timesN}\)</span>表示图结构</li><li>属性矩阵<span class="math inline">\(X \in \mathbb{R}^{N \timesF}\)</span>表示节点的特征</li></ul><p>需要指出，此处的邻接矩阵只用于概念的表达，在实践中会使用更优雅的邻接列表（一个由若干具备两个元素的列表构成的列表）表示图的结构。原因有两点：</p><ul><li>空间复杂度：邻接列表的为<spanclass="math inline">\(O(n_{edge})\)</span>，一般来说会显著低于稀疏的邻接矩阵的<spanclass="math inline">\(O(n_{node}^2)\)</span>；</li><li>当元素的排列顺序发生变化时，邻接矩阵也会发生变化，而不同的邻接矩阵对应的学习结果可能是不同的。</li></ul><h2 id="基于序列处理的方法">基于序列处理的方法</h2><p>在图中随机游走以搜索序列，将它们看作句子，节点看作词，这样就可以利用NLP的方法来表示图中的节点。典型的方法比如DeepWalk、Node2Vec等。</p><p>DeepWalk 通过随机游走将图转化成节点序列，设置中心节点左右距离为 w的节点为 上下文 ( context )。同词向量方法一样，DeepWalk本质上建模了中心节点与上下文节点之间的共现关系，这种关系的学习也采用了负采样的优化手段。</p><p>基于随机游走的方法相比上一类方法，最大的优点是通过将图转化为序列的方式从而实现了大规模图的表示学习。但是这也导致了两个缺点：一是将图转化成序列集合，图本身的结构信息没有被充分利用；二是该学习框架很难自然地融合进图中的属性信息进行表示学习。</p><h2 id="基于神经网络的方法">基于神经网络的方法</h2><p>图神经网络（Graph NeuralNetworks，GNN）的最初的构想是由Scarselli等人在2009年提出的[2]。它依赖于一个事实，即<strong>每个节点都可以用它的邻域来描述</strong>。来自邻域的信息可以聚合并用于计算更复杂和高级的特征，而节点脱离了其邻域将丢失其所有信息。因此，在不考虑节点连接性的前提下，使用任意可微分模型（如MLP）分别对每个节点进行嵌入，最后再对邻域或整张图进行某种池化（如最简单的求和），即可基于节点的嵌入实现上游的任务（如，基于邻域的池化结果做节点或边的预测，或基于整张图的池化结果做图的分类）。在上述训练过程中没有使用图的连通性信息，每个节点都是独立处理的，仅在汇集信息时使用了连通性信息。尽管简单，然而这个模型已经是一个GNN。</p><p>在此基础上，我们让GNN在学习嵌入的过程中吸收图的连通性信息。以学习节点嵌入为例，一开始，每个节点<spanclass="math inline">\(v_i\)</span>都与一个状态相关联。某个节点一开始可能拥有一个随机的嵌入<spanclass="math inline">\(h_i^t\)</span>（为了简单起见，忽略节点属性）。在算法的每次迭代（对应到模型，即每层消息传递函数）中，节点使用一个简单的神经网络层积累来自其邻居<spanclass="math inline">\(\mathcal{N}(v_i)\)</span>的输入:</p><p><span class="math display">\[h_i^t=\sum_{v_j \in\mathcal{N}(v_i)}\sigma(Wh_j^{t−1}+b)\]</span></p><p>其中，<span class="math inline">\(W \in \mathbb{R}^{d \timesd}\)</span>和<span class="math inline">\(b \in\mathbb{R}^d\)</span>是可训练参数（其中<spanclass="math inline">\(d\)</span>为嵌入的维数），<spanclass="math inline">\(\sigma\)</span>是非线性函数，<spanclass="math inline">\(t\)</span>表示算法的第<spanclass="math inline">\(t\)</span>次迭代。这个方程可以递归地应用，直到达到一个特定的目标。在每次迭代中，之前的状态（在之前的迭代中计算的状态）被用来计算新的状态，而每增加一次迭代，参与表征节点的节点范围就再向外扩大一跳。比如，当迭代轮数为3时，每个节点的嵌入是基于其三跳范围内的邻域优化的。从上面的式子中还可以看出，GNN的每一层对图进行了更新，但保持了图结构的不变性。</p><p>在实践中，节点信息的维度可能和边的不同，因此会产生将节点信息“路由”到边缘（即，用节点表示的池化表征边缘，以在缺失边缘信息的情况下对边缘进行预测等）或将边缘信息“路由”到节点等不同的GNN用法。甚至还可以学习节点到节点、边到边、节点到边、边到节点的映射，将它们四个组合以得到新的节点和边的表征；还可以把图的全局信息融入到节点或边的表示中去。</p><p>总的来说，</p><ol type="1"><li><p>并不是模型越复杂、参数量越多，效果就一定越好。一般来说，对于GNN的层数或模型的嵌入维度，更高的值会提升性能的下限和均值。性能的上限提升的概率则相对更低。例如，可能在某些任务中发现2个GNN层的表现好于3个，这可能是因为对于某些数据，多层的GNN在更大的范围内广播信息，“稀释”了节点的表达。</p></li><li><p>某些选项对GNN的效果影响取决于数据。增多参与学习的图组件（节点、边、全局）并丰富它们之间消息传递的类型对结果的改善可能是有限的。例如，当边本身具备的语义（属性）十分匮乏时，将边的表征作为最终训练目标的一部分仍会对结果产生的增益，但十分有限。</p></li></ol><p>不论如何，对于一个基于学习的模型而言，<strong>比起改进模型的细节，在图中加入更多有效（明确、可学习）的语义（属性）可能对结果的提升更有帮助</strong>。</p><p>上述GNN原型可以轻松拓展到存在异构边或节点的图，具体办法是为不同类型指定不同的消息传递步骤，或对图进行分层，在不同的层（例如，最底层由原始的图节点构成；中间层包含一些表征某些抽象语义的节点，它们与底层节点之间的边用来表征节点之间复杂的语义共享关系；最上层则是代表图全局属性的节点，该节点和中间层节点同样存在边的联系）上分别进行学习，在训练期间让它们进行交替或融合。最后，当应用到批处理（minibatch）时，可以选用的采样方式主要包括随机选取若干节点+拓展邻域、随机游走、随机游走+拓展邻域、随机选取单个节点+拓展邻域等。当图的度较高时，也有基于边进行批采样的方法。</p><h3 id="损失函数">损失函数</h3><h4 id="重构损失reconstruction-loss">1. 重构损失（ReconstructionLoss）</h4><p>定义一个适用于图的自编码器（Graph AutoEncoder）如下：</p><p><span class="math display">\[Z=GNN(X,A),\hat{A}=\sigma(ZZ^T)\]</span></p><p>其中使用了GNN模型同时对图的属性（<spanclass="math inline">\(X\)</span>）与结构（<spanclass="math inline">\(A\)</span>）进行编码学习，得到一个对所有节点集合的嵌入（embedding，即<spanclass="math inline">\(Z\)</span>）。随后，使用向量的内积表示节点之间的邻接关系，以此得到一个重构的邻接矩阵<spanclass="math inline">\(\hat{A}\)</span>。其中，内积本质上收集（池化）了与每个节点存在边的所有节点的特征。因此，自编码器的重构损失可以定义为：</p><p><span class="math display">\[\mathcal{L}_{recon}=\Vert \hat{A}-A\Vert^2\]</span></p><h4 id="对比损失contrastive-loss">2. 对比损失（Contrastive Loss）</h4><p>自监督学习中常用的对比损失形式为： <spanclass="math display">\[L=-log\left[\frac{exp(s_{i,i}/\tau)}{\sum_{k\neqi}exp(s_{i,k}/\tau)+exp(s_{i,i}/\tau)}\right]\]</span></p><p>该损失函数要求第<spanclass="math inline">\(i\)</span>个样本和它的另一个正样本之间的相似度<spanclass="math inline">\(s_{i,i}\)</span>尽可能大，而与其他负样本之间的相似度尽可能小。其中，温度系数<spanclass="math inline">\(\tau\)</span>的引入使得距离更近的负样本可以拥有更大的惩罚（这种性质也成为Hardness-Awareness，困难样本感知）。</p><p>特别地，孪生神经网络中的对比损失函数常见为如下形式： <spanclass="math display">\[L=1/2N\sum^N_{n=1}yd^2+(1-y)max(margin-d, 0)^2,d=\left\|a_n-b_n\right\|^2\]</span></p><p>其中，<spanclass="math inline">\(d\)</span>是两个样本的欧氏距离，<spanclass="math inline">\(y\)</span>是一个标签，指示两样本的相似（匹配）程度（1为相似，0为不相似）。当<spanclass="math inline">\(y=1\)</span>时，损失函数只留第一项，即相似的样本的距离应尽可能小。当<spanclass="math inline">\(y=0\)</span>时，损失函数只留后一项。对于不相似的样本，<spanclass="math inline">\(d\)</span>越小，损失越大，即不相似的样本的距离应尽可能大。</p><h2 id="参考文献">参考文献</h2><p><em>本文主要参考</em><br />A Gentle Introduction to Graph Neural Networks.https://distill.pub/2021/gnn-intro/ （包含PlayGround）</p><p><em>其他参考文献包括</em><br />[1] 基于GNN的图表示学习及其应用.https://zhuanlan.zhihu.com/p/113235806<br />[2] The Graph Neural Network Model. IEEE Transactions on NeuralNetworks, 2009.<br />[3] CVPR2021自监督学习论文: 理解对比损失的性质以及温度系数的作用.https://zhuanlan.zhihu.com/p/357071960</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;图表示学习将稀疏的图数据表征为稠密的较低维向量以用于后续任务。
+例如，在基于“用户-商品”二部图的推荐系统两侧分别补充用户与商品的异构图信息，并利用GNN来捕捉用户与商品间的高阶关联[1]。</summary>
+    
+    
+    
+    <category term="理论学习" scheme="https://daweix.github.io/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="GNN" scheme="https://daweix.github.io/tags/GNN/"/>
+    
+    <category term="Graph" scheme="https://daweix.github.io/tags/Graph/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>书籍摘抄：《傅山研究文集》</title>
+    <link href="https://daweix.github.io/2022/08/book-fushanyanjiu/"/>
+    <id>https://daweix.github.io/2022/08/book-fushanyanjiu/</id>
+    <published>2022-08-04T13:33:52.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>山西省社会科学院 编，山西人民出版社</p></blockquote><p>“风有方圆否？水因搏击高。偏才遇乱世，喷口成波涛。”</p><span id="more"></span><p>傅山（1607-1684）字青主，山西阳曲（今太原市）人，明末清初启蒙思想家和爱国主义者，著有《霜红龛全集》。他在哲学、文学、医学、书法和绘画仿冒都有重要成就。这篇傅山研究文集的读书笔记归纳了若干傅山的贡献中值得借鉴之处，作为备忘。</p><h2 id="治学做事的实用主义">1. 治学、做事的实用主义</h2><p>傅山是一位在明清时期率先恢复诸子百家地位，批判不济世的儒学、理学的先行者。作为一位思想家，他和王夫之、黄宗羲、朱之瑜、顾炎武、方以智和屈大均并列。纵观古今，伟大的思想家往往在乱世出现。梁启超说：“晚明政治和社会所以溃烂到那种程度，最大罪恶，自然是在那一群下流无耻的八股先生，巴结太监，鱼肉人民，我们一点不能为他们饶恕。却是和他们反对的，也不过一群上流无用的八股先生，添上几句格物致知的口头禅做幌子，和别人闹意见闹个不休”。在这种社会风气之下目击身受的傅山对这一现实予以揭露和指斥[1]。即使有再华丽的概念，再权威的地位，儒学理学无法切实解决现实问题，那即使它们是“政治正确”，也应该予以坚决批判。</p><p>同样的道理，傅山对八股文也深恶痛绝，“仔细想来，便此技到绝顶，要它何用？”。他主张文章要“简”，要“减”，要“不贪”，要破形式框框，要有思想内容实质，要有高的格调[4]。他的很多文章就短小精悍，例如墓志铭《书张维遇志状后》一文仅357字，但却异与世俗之见正面评价了宿娼染疾而死的张维遇，烘托了悲凉气氛，也借对其子的好学留下了对未来的希冀。</p><!-- > 午定张生煌不忍厥父杂遇之不闻于乡也，列其行请后实诘墓，复欲老夫言。老夫学老庄者也于世闾诸仁义事实薄道之即强言之亦不能工不过于居实之诰睦渥耳又恶用之老夫以别眼看维遇其敢死为胜状话皆云以少不谨致疾名际而字遏际遇若此敢死于床窦与敢死于妙锡等也且道今泄纵酒悦色以期于死者吾党有几人哉吾量目辙州中河漏每过州知交辄为设河漏遂皆竞精河漏之法而吾日平定无河漏矣维遇亦吾革柯漏檀越也居东门小亭藏古梅一整局丈咸四尺传为百馀年物初为某百户家所藏转向至维遇家岁宝时著花高植不受俗物攀显又冬青茂亦不类常所见持抟浓茂二老醉耳复于根旁小分一一枝瘦蒲并举枝头叶皆以少为贡如刘松年画松法吾每于此蛾河漏辄多进一半碗如梅冬青之劝我也无何梅与冬青无故忽枯死而维遇亦随物故异哉烟能读书钞书皆始终笔画精细不图是州中且杀辈好学人也即此维遇有子园维遏者尚烦友朋之言哉 --><h2 id="不断进化避免固守">2. 不断进化，避免固守</h2><p>傅山认为“‘学’本义‘觉’，而学之鄙者无觉”，即强调了学习知识要为我所用，追求从知识中参悟规律。在这种实用主义的思想的基础上，他进一步引用荀子“君子之学如蜕”的命题，主张学问与认知要不断更新（“君子学问不时变化，如蝉蜕壳，若得少自锢，岂能长进？”）[2]。从更宏观的角度去看，人类的思想也是在前人的基础上进行扬弃而不断演进的，例如傅山指出“老子‘善下人’、‘不为大’之语，即‘天道下济而光明’，出《易》；‘不矜不伐，莫与之争’，《帝典》之言也……”。这种通过旁征博引来将不同时间的思想成果串联起来加以分析评判，是傅山治学的长处——放在今天，也是做研究和考虑问题的重要技能。在批注一本书时，傅山的研究不仅细察本书，也会旁征群书，更会贯穿古今。作为结果，他先他人之先创新地补充了诸多古书的批注，犀利地批判了前人留下的一些错误。可见，不限于手头的只言片语对已有的认识做出更新，不仅仅需要一种“苟日新”的意识，也需要去实实在在地扩充自己的知识储备，否则就会如墙头草一般人云亦云，这种所谓“进化”并不是真正的进化。</p><p>思想的不断进化在傅山自己身上便有所体现。在明末，傅山对农民起义持反对、批判态度，称赞镇压农民起义的士大夫，而在明亡后民族矛盾上升为主要矛盾时，傅山对农民的态度开始发生转变，开始称农民起义军为“忠义”[5]、“义勇少年”[6]。此外，由于傅山不喜赵孟頫的为人，故起初也一并对其书法加以批判。随着后来傅山思想的进步，他又进行了自我纠偏，重新给予了赵的书法以客观的评价。</p><h2 id="倡导平等兼爱非攻">3. 倡导平等，兼爱非攻</h2><p>傅山认为平等是高尚的。所谓平等，一方面是待人不分高低贵贱，摒弃奴性，不卑不亢，如李白“对皇帝只如对常人，作官只如作秀才”；另一方面则是位高从政者也不能自恃尊贵，不是民众“事”圣人，而是圣人要“为民”。否则，所谓大人就是“草芥”“寇仇”[5]。这是傅山对儒家“君臣如父子”的等级观念的重大批判，是反对封建纲常、倡导民主意识的宝贵思想。傅山进一步提出了“世儒所谓礼者，治世之衣冠而乱世之疮也”，忠臣“非忠其君”、“臣亦择其君，原不仅区区福禄之计”、“仕本凭一志”等振聋发聩的命题。此外，傅山认为“立身扬名，显亲于后世”，还不如父母在世时“冀得亲之一欢一笑”；“礼多则不亲”。因此，傅山拜托了所谓“正统思想”的形式，是一位杰出的启蒙思想家[5]。</p><h2 id="使用辩证的思想看待问题">4. 使用辩证的思想看待问题</h2><p>傅山创造性地指出“有生于无”中的“无”不是虚无，而是一种变化不定的状态——它既变化不定，又蕴含着变化的主体。此外，“有”“无”的概念是相对的，任何事物都有这两种属性，二者对立统一[7]。这种思想是唯物主义的，也是辨证的。傅山批判了理学家“扶阳抑阴”的主张，认为“君子不能使天不生小人，小人不能使天不生君子。欲独据而有之者，天之毗也，理之毗也”。君子和小人也是同时存在，互为依存的，都不能离开对方单独存在[8]。列宁说“统一物之分为两个部分以及对它的矛盾着的部分的认识……是辩证法的实质”，傅山贯彻了辩证法的思想，在中国哲学史上第一次用对立统一的思想来表述运动[7]。再如，公孙龙《坚白论》认为，手摸石得其坚而不得其白，此时白为“自藏”；目视石得其白而不得其坚，此时坚为“自藏”。傅山评道“莫非自露处，那得云自藏？”，将公孙龙企图抹杀事物属性的客观性质的唯心主义思想予以批判。</p><p>此外，任何事物都是发展变化的，因为傅山也指出“昨日新，前日陈；昨日陈，今日新；此时新，转眼陈；大善知识，无陈无新”。知识与认知也是螺旋式不断新旧交替发展的，“新”与“旧”是对立的也是统一的。我们既要认识到事物“新”的一面，也要积极追随事物的变化、不断加以更新。<del>可见，傅山不仅早在明清时期就产生了唯物辩证法思想的萌芽，他甚至还率先提出了长短期记忆（LSTM）模型。</del></p><p>同样地，评判傅山，也应该一分为二，从矛盾论的角度出发。比如傅山虽信神佛、存在一定的消极迷信观念，但其中也有积极救世的一面。比如，他认为佛法不能离开世间社会关系，佛法是为人服务的，不是出世而是入世[9]，这和所谓“佛教教团则很可能是最大的颓废主义者群体”的论调不谋而合。作家敬文东说</p><blockquote><p>和所有颓废主义者一样，乔达摩·悉达多在称为释迦牟尼之后，依然穿行在人群之中。他甚至拒绝接受任何形式的布施。释迦牟尼看到了勇于进取者的荒唐、可笑、可叹和可悲，更加坚定了进一步称为释迦牟尼的决心。很难设想，要是乔达摩·悉达多像后起的沙弥或僧众那样抛却众人、深山静修，是否还会成为释迦牟尼。这样说起来我们都错了，因为我们以为释迦牟尼真的是超越生死轮回的佛，而不是人。事实上，释迦牟尼始终是一个人，是人中的颓废主义者。……他确实不是一个自私自利者，相反，由于他的善良，所以他才预先创立了这个教团，以迎候那些向往彻底颓废的人。完成了这一工作后，释迦牟尼还给那些向往彻底颓废的人，安慰性地制定了颓废所能达到的各种果位：沙弥、和尚、菩萨……或者罗汉。</p></blockquote><p>“没有观察对象的旁观者是不存在的，同样的道理，没有人群可供穿越的隐居者也是不存在的。”</p><h2 id="拙不必藏得意忘形的美学观">5. “拙不必藏”、“得意忘形”的美学观</h2><p>宁拙勿巧，宁丑勿媚，宁支离勿轻滑，宁直率勿安排，宁横勿顺。</p><p>造语却非一意雕琢，在理明义恰，天机适来，不刻而工。</p><p>此是吾家诗，不属袭古格。昧心作好语，于我有何乐？</p><p>非法、非非法。（主张“非法”及打破程式，但“非法”也建立在“非非法”的基础上，不能脱离根本规律）</p><h2 id="参考文献">参考文献</h2><ol type="1"><li>郝树侯. 傅山的学术思想与成就.</li><li>侯外庐. 傅山《荀子评注》手稿序言.</li><li>陈扬炯. 关于傅山论述中的三个问题——与侯外庐、郝树侯二位先生商榷.</li><li>赵俪生. 读《霜红龛集》札记.</li><li>魏宗禹, 任乐. 试论傅山的政治思想.</li><li>陈监先. 傅山对农民起义的态度问题.</li><li>魏宗禹, 尹协理. 傅山的有无观.</li><li>魏宗禹, 尹协理. 傅山的朴素辩证法思想.</li><li>王守义. 傅山和李贽.</li><li>敬文东. 颓废主义者的春天.</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;山西省社会科学院 编，山西人民出版社&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;“风有方圆否？水因搏击高。偏才遇乱世，喷口成波涛。”&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="阅读" scheme="https://daweix.github.io/categories/%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="书籍摘抄" scheme="https://daweix.github.io/tags/%E4%B9%A6%E7%B1%8D%E6%91%98%E6%8A%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Soot学习-Overview</title>
+    <link href="https://daweix.github.io/2022/04/soot/"/>
+    <id>https://daweix.github.io/2022/04/soot/</id>
+    <published>2022-04-21T08:03:04.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录一些关于Soot的最基础的知识。</p><span id="more"></span><h2 id="soot-irs">Soot IRs</h2><ul><li><p><strong>Baf</strong>:一种基于栈的，以<strong>B</strong>ytecode形式呈现的中间表达</p></li><li><p><strong>Jimple</strong>:<strong>J</strong>ava的简单（S<strong>imple</strong>，不包含嵌套关系，且只有15种语句），带类型，无栈信息的，基于三位址码（ThreeAddressCode）的中间表达，可放在控制流图中。每个三位址码都可被分解为一个四元组<span class="math inline">\((operate, exp1, exp2, result)\)</span>由于其包含三个变量，故被称为三地址码</p></li><li><p><strong>Shimple</strong>: <strong>S</strong>SA （Static SingleAssignment）版本的<strong>Jimple</strong>。在SSA中，变量的每次赋值均对应一个新的变量（版本），而每次使用的变量均为该变量到达该程序点时的版本。例如，对于<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y := <span class="number">1</span> <span class="comment">// 多余的赋值</span></span><br><span class="line">y := <span class="number">2</span></span><br><span class="line">x := y</span><br></pre></td></tr></table></figure>对于非SSA形式的编译器，需要通过数据流分析（到达-定义分析）来确定<spanclass="math inline">\(x\)</span>选取哪个<spanclass="math inline">\(y\)</span>值。SSA将其转化为 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y1 := <span class="number">1</span></span><br><span class="line">y2 := <span class="number">2</span></span><br><span class="line">x1 := y2 <span class="comment">// x1来自于y2</span></span><br></pre></td></tr></table></figure>便省去了数据流分析的过程</p></li><li><p><strong>Grimp</strong>:类似J<strong>imp</strong>le，不过表达式是聚合（ag<strong>gr</strong>egated）的</p></li><li><p><strong>Dava</strong>:用来反编译（<strong>D</strong>ecompile）J<strong>ava</strong>的结构化表达</p></li></ul><h2 id="soot-structure">Soot Structure</h2><pre class="mermaid">graph TDs[&quot;Scene(singleton)&quot;]Root--&gt; |&quot;Scene.v()&quot;|s --&gt; |&quot;getSootClass()&quot;|SootClassSootClass --&gt; |&quot;getField()&quot;|SootFieldSootField --&gt; |&quot;getSignature()&quot;|SootFieldSootClass --&gt; |&quot;getMethod()&quot;|SootMethodSootMethod --&gt; |&quot;getSignature()&quot;|SootMethodSootMethod --&gt; |&quot;getActiveBody()&quot;|JimpleBody</pre><p>在<code>&lt;IR&gt;Body</code>（如JimpleBody）中，代码语句（Statement）是用接口<code>Unit</code>表示的。该接口对每种IR均有对应的实现。<code>Unit</code>提供的API可用于向前或向后展开逐语句的分析（或插桩）。如</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">JMethod</span><span class="params">(SootMethod rawMethod)</span> &#123;</span><br><span class="line">  <span class="type">Body</span> <span class="variable">body</span> <span class="operator">=</span> rawMethod.getActiveBody();</span><br><span class="line">  PatchingChain&lt;Unit&gt; units = body.getUnits();</span><br><span class="line">  Iterator&lt;Unit&gt; iterator = units.iterator();</span><br><span class="line">  <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="soot-phases">Soot Phases</h2><p>下图展示了Soot中不同pack（处理阶段）之间的工作方式。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    jb --&gt; cg --&gt; wjtp --&gt; wjop --&gt; wjap --&gt; jtp</span><br><span class="line">    jtp --&gt; jop --&gt; jap --&gt; bb --&gt; tag</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[Hard] --&gt;|Text| B(Round)</span><br><span class="line">B --&gt; C&#123;Decision&#125;</span><br><span class="line">C --&gt;|One| D[Result 1]</span><br><span class="line">C --&gt;|Two| E[Result 2]</span><br></pre></td></tr></table></figure><h3id="jbjimple-body-creation"><strong>jb</strong>（<strong>J</strong>imple<strong>B</strong>ody Creation）</h3><p>首先，Soot对每个方法体（Method Body）应用jbpack。诸如<code>System.currentTimeMillis()</code>等原生方法没有body。jbpack是固定的，与Jimple的创建有关，其无法被修改。</p><h3 id="whole-program">Whole-Program</h3><p>接下来，Soot应用四个pack：</p><ul><li><p>cg，即调用图（Call Graph）</p></li><li><p>wjtp，whole-jimple transformation pack</p></li><li><p>wjop，whole-jimple optimization pack</p></li><li><p>wjap，whole-jimple annotation pack</p></li></ul><p>上述四个pack仅在指定-w（wholeprogram）时才会加入到Soot中，且均可以被修改。特别地，每步后均可插入自定义的额外分析（插桩）步骤。例如，下面的代码在wjtp后追加一个额外的<code>SceneTransformers</code>：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  PackManager.v().getPack(<span class="string">&quot;wjtp&quot;</span>).add(</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Transform</span>(<span class="string">&quot;wjtp.myTransform&quot;</span>, <span class="keyword">new</span> <span class="title class_">SceneTransformer</span>() &#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">internalTransform</span><span class="params">(String phaseName,</span></span><br><span class="line"><span class="params">            Map options)</span> &#123;</span><br><span class="line">          System.err.println(Scene.v().getApplicationClasses());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;));</span><br><span class="line">  soot.Main.main(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="jimple-packs">Jimple Packs</h3><p>类似地，对于每个方法体，Soot还提供了 + jtp，Jimple transformationpack:默认启用且为空。一般可将过程间分析逻辑（定义在一个继承自<code>BodyTransformer</code>的自定义类中）置于此处。</p><ul><li><p>jop，Jimple optimization pack:对Jimple进行优化，默认关闭。可通过参数<code>-o</code>或<code>-p jop enabled</code>开启。</p></li><li><p>jap，Jimple annotation pack:对Jimple进行属性注解。下面的代码片段中，插入的逻辑将为方法中的每条语句打印标签：</p></li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  PackManager.v().getPack(<span class="string">&quot;jap&quot;</span>).add(</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Transform</span>(<span class="string">&quot;jap.myTransform&quot;</span>, <span class="keyword">new</span> <span class="title class_">BodyTransformer</span>() &#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">internalTransform</span><span class="params">(Body body, String phase, Map options)</span> &#123;</span><br><span class="line">          <span class="keyword">for</span> (Unit u : body.getUnits()) &#123;</span><br><span class="line">            System.out.println(u.getTags());</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;));</span><br><span class="line">  Options.v().set_verbose(<span class="literal">true</span>);</span><br><span class="line">  PhaseOptions.v().setPhaseOption(<span class="string">&quot;jap.npc&quot;</span>, <span class="string">&quot;on&quot;</span>);</span><br><span class="line">  soot.Main.main(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>bb pack用于将（优化后和注解后的）Jimple体转换为Baf体，而tagpack用于聚合重复标签。</p><h3 id="参考">参考</h3><ol type="1"><li>http://www.iro.umontreal.ca/~dufour/cours/ift6315/docs/soot-tutorial.pdf</li><li>http://www.bodden.de/2008/11/26/soot-packs/</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;记录一些关于Soot的最基础的知识。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="程序分析" scheme="https://daweix.github.io/categories/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="Soot" scheme="https://daweix.github.io/tags/Soot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>书籍摘抄：《摆脱贫困》</title>
+    <link href="https://daweix.github.io/2022/03/book-baituopinkun/"/>
+    <id>https://daweix.github.io/2022/03/book-baituopinkun/</id>
+    <published>2022-03-02T14:23:53.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>习近平 著，福建人民出版社</p></blockquote><span id="more"></span><p>【弱鸟如何先飞——闽东九县调查随感】</p><blockquote><p>扶贫要先扶志，要从思想上淡化“贫困意识”。不要言必称贫，处处说贫。有些本来发展不错的乡镇也把自己列入贫困的范围，这样做只能起消极作用。其次，要有比较明确的脱贫手段，无论是种植、养殖还是加工业，都要推广“一村一品”。……第三，要把脱贫与农村社会主义精神文明建设结合起来。寿宁县一些农民住宅人畜混居，卫生状况很差，县里要帮助农民规划农村住宅建设，将人畜分开，改变“贫困——不卫生——疾病——贫困”的恶性循环状况。第四，扶贫基金要相对集中一部分用于扶持乡村集体经济实体，增强脱贫后劲。</p></blockquote><blockquote><p>民族工作的立足点在于发展经济，只有把经济搞上去，才有可能谈民族的真正平等。</p></blockquote><p>【提倡“经济大合唱”】</p><blockquote><p>“阳春白雪”也好，“下里巴人”也好，只要有主旋律，有节奏，就有艺术感染力了。否则，党委一个调，人大一个调，政协一个调，政府又是一个调，“杂花生树，群莺乱飞”，这个地方的“歌”肯定唱不好。“经济大合唱”就是要讲协调，讲配合。光有主旋律，不讲同心协力不行，搞内耗和摩擦更不行，需要调动各个部门、各个方面的积极性。既然是大合唱，各个部门就要自觉配合，主动协调。这不是简单的“1+1=2”，我们要的是“1+1&gt;2”——也就是我们通常所说的“整体功能效益”。……各个部门有相对的独立性，但又都是整体中的一个部分，不能独立于整体之外，也不能和其他部门割断关系。“见骥一毛，不知其状；见画一色，不知其美。”任何部门搞“独立大队”，都是违背整体战略的。每一个干部都要有这样一种意识：大合唱中，有你的位子，就有你讲配合的职责。</p></blockquote><p>【干部的基本功】</p><blockquote><p>要领导就要有威信，没有威信就不能真正地领导。领导的威信从哪里来？靠上级封不出来，靠权力压不出来，靠耍小聪明骗不出来，只有全心全意、尽心竭力、坚持不懈为人民办事，才能逐步地树立起来。领导要有水平，水平从哪里来？水平来自对客观规律的认识和掌握，而规律性的东西，正式蕴藏在广大群众的实践中。因此，要提高领导水平，就要眼睛向下，善于从群众的实践中汲取营养，获得真知。所以，无论是从发挥党的领导作用，还是从调动群众积极性这两方面说，都要求我们的各级干部始终同广大人民群众保持密切的血肉联系。</p></blockquote><blockquote><p>不做无补之功，不为无益之事。</p></blockquote><p>【闽东之光】</p><blockquote><p>有句成语叫“王婆卖瓜，自卖自夸”，很有讽刺的味道。其实，如果王婆的瓜确实是好的，有它的特色，为什么不能自卖自夸呢？这也是一种自尊心、自信心的表现。我们也不妨做做王婆。要当好王婆也不容易，首先要对自己手里的货色有充分的了解，才能介绍得好，才能鼓舞人心。</p></blockquote><p>【从政杂谈】</p><blockquote><p>急于求成本身就孕育着失败的危险。</p></blockquote><blockquote><p>从发展的观点看，人的知识也有一个不断充实的过程。任何一个人，即使智商很高的人，都不可能一次性就求到事物的“是”。即使求到了，也是一种阶段性的“是”。所谓我们只可能接近真理，永远不可穷尽真理，就是这个道理。凭一点阶段性的“是”去处理无限过程的事，在认识论上要犯形而上学的错误，在实践中要犯教条主义的错误。</p></blockquote><blockquote><p>我想，“谋于前才可不惑于后”。做出决策之前，先听他个八面来风，兼听各种意见，深入了解所面临问题的本质，找出其规律，谋而后断；一旦作出决议，在解决问题过程没有结束之前，不作主体更改。“临大事而不乱”，“临利害之际不失故常”。</p></blockquote><p>【对闽东经济发展的思考】</p><blockquote><p>可能性和必要性不等于就是必然性，不要把近期内难以实施的发展目标超前化……又要防止把近期规划简单化。当前重要的是抓好中、短期的工作。</p></blockquote><p>【跋】</p><blockquote><p>风风雨雨、冷冷热热、进进退退、寻寻觅觅，许多人对经济建设就是最大的政治这一点始终欠缺理解，脑子始终转不过来。而实践则不断给予明证：社会主义的优越性，只有在生产力的解放中，在国力的快速增强中，在人民生活的极大改善中，在与外部世界日益广泛的交往中才能得以最充分体现。</p></blockquote><blockquote><p>我是崇尚行动的。实践高于认识的地方正在于它是行动。从这个意义上说，我们不担心说错什么，只是担心“意识贫困”，没有更加大胆的改革开放的新意；也不担心做错什么，只是担心“思路贫困”，没有更有力度的改革开放的举措。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;习近平 著，福建人民出版社&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="阅读" scheme="https://daweix.github.io/categories/%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="书籍摘抄" scheme="https://daweix.github.io/tags/%E4%B9%A6%E7%B1%8D%E6%91%98%E6%8A%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>书籍摘抄：《五十大话》</title>
+    <link href="https://daweix.github.io/2022/01/book_wushidahua/"/>
+    <id>https://daweix.github.io/2022/01/book_wushidahua/</id>
+    <published>2022-01-28T02:43:05.000Z</published>
+    <updated>2025-04-19T11:25:39.339Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>贾平凹 著，译林出版社</p></blockquote><span id="more"></span><p>【江浙日记】</p><blockquote><p>望见云在山头，登上山头，云还在远。人生应有不安生的态度，具体一门确需沉静。</p></blockquote><blockquote><p>中山陵以前来过，已不觉新奇，虽有气势，终不能比乾陵，武则天那个女人有豪气，死后将陵墓横在关中平原上，几十里外便能看得见一个女人形仰躺在天地之间。中山碑很高，可以与黄河东岸司马光陵前的碑子一比，但都写了字，还是没乾陵上无字碑的派头。中山陵侧有灵谷寺，却是好去处，进了山门，一条路上干净无泥，道旁送上落了雪，雪又不大，银里幽幽透出绿来，柔柔可爱。</p></blockquote><blockquote><p>旧友相会，说：“你这回是读万卷书，行万里路了！”我说：“惭愧，路可能有万里，但都是飞机火车或小车在高速路上跑。”遂作想，古人行万里路，是步行或骑一毛驴，“鸡声茅店月，人迹板桥霜”，一路寻径问道在恶劣的自然环境中，忍饥受渴看眉高眼低在炎凉的人情世故里，那是真正能体证天地人生，而我奔走，则远远不能了，真和尚和要做和尚是不一样的，因赶路一天没吃饭和吃了上顿不知下顿吃什么是不一样的，这是我的幸，也是我的不幸。</p></blockquote><blockquote><p>当年在商州采风，那是背了笔和纸、牙刷和锅盔，一个县一个县地走，走饥了就寻饭店吃，走累了就寻旅社睡。先后数月，吃了一肚子酸菜糊汤，养了一身的虱，获得精神上的、文学上的东西便享用了几十年。……现在提倡深入生活，说的都是文人最起码的东西。</p></blockquote><blockquote><p>不到江南，我向往江南，去了江南，我更热爱我们的西北。西北历史的辉煌和现今的艰苦，给了我生命和气质。我从事文学，这么从黄河到长江，明白了我们的不足，也坚定了我们的信心。草食动物或许是胆小的兔子，但也可能是恐龙大象，吃血的或许是老虎也或许是虱子。我再不为远离京都而自叹，也不再为所谓西安”生人不养人“的环境而悲苦，放眼天下，心存高志，阔大胸怀，善于汲取，才是我发展天才的急需！当年的孔子”西行不到秦“的，我往东去，为的是得大自在。</p></blockquote><p>【茶杯】</p><blockquote><p>无事乱翻书，有茶清待客。</p></blockquote><p>【朋友】</p><blockquote><p>孤独的灵魂在空荡的天空中游弋，但人之所以是人，有灵魂同时有身躯的皮囊，要生活就不能没有朋友，因为出了门，门外的路泥泞，树丛和墙根又有狗吠。……朋友是春天的花，冬天就没有了，朋友不一定是知己，知己不一定是朋友。</p></blockquote><p>【一点感悟】</p><blockquote><p>浮躁虽不是成熟的表现，但浮躁是前进的必然一步。</p></blockquote><p>【五十大话】</p><blockquote><p>人的一生其实干不了几样事情，而且所干的事情都是在寻找自己的位置。性格为生命密码排列了定数，所以性格的发展就是整个命运的轨迹。不晓得这一点，必然沦成弱者，弱者是使强用狠，是残忍的，同样也是徒劳的。我终于晓得了，我就是强者，强者是温柔的，于是我很幸福地过我的日子。……谄固可耻，傲亦非分，最好的还是萧然自远。别人说我好话，我感谢人家，必要自问我是不是有他说的那样？遇人轻我，肯定是我无可重处。……做车子的人盼别人富贵，做刀子的人盼别人伤害，这是技术本身的要求。若有诽谤和诋毁，全然是自己未成正果，一只兔子在前边跑，后边肯定有百人追逐，不是一只兔子可以分成白只，是因为这只兔子的名分不确定啊。在屋前种一片竹子不一定就清高，突然门前客人稀少，也不是远俗了，还是平平常常着好，春到了看花开，秋来了就扫叶。</p></blockquote><blockquote><p>病是生与死之间的一种微调，它让我懂得了生死的意义，像不停地上着哲学课。</p></blockquote><p>【说舍得】</p><blockquote><p>不舍不得，小舍小得，大舍大得。翻读古书，历史上有过了许多著名人物，韩信能胯下受辱方成大器；勾践卧薪尝胆终得灭吴；田忌与齐王赛马，以下肆对齐上肆，上肆对齐中肆，中肆对齐下肆，舍了小负之悲，得了全胜之喜。人是如此，万事万物何尝不也是这样呢？蛇是在蜕皮中长大，金是在沙砾中淘出，按摩是疼痛后的舒服，春天是走过冬天的繁荣。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;贾平凹 著，译林出版社&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="阅读" scheme="https://daweix.github.io/categories/%E9%98%85%E8%AF%BB/"/>
+    
+    
+    <category term="书籍摘抄" scheme="https://daweix.github.io/tags/%E4%B9%A6%E7%B1%8D%E6%91%98%E6%8A%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Least Astonishment</title>
+    <link href="https://daweix.github.io/2021/12/Least-Astonishment/"/>
+    <id>https://daweix.github.io/2021/12/Least-Astonishment/</id>
+    <published>2021-12-31T09:57:52.000Z</published>
+    <updated>2025-04-19T11:25:39.338Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>最小惊讶（Least Astonishment）原则是好文明</p></blockquote><span id="more"></span><p>在2021年的最后一天，没有写什么年终总结，也没有完成一周后就要提交的NLP大作业，我却在继续瞎折腾这个blog。说起来，起初我只是想给它补充一个RSS订阅的功能而已，但是折腾完了却仍不收手，总是像让它更完美一些，一步到位，以后就直接发布文章就可以了<del>在5月份最一开始折腾这个东西的时候就是这么想的</del>。总的来说，我为博客引入了如下功能或调整：</p><ol type="1"><li>暗黑模式：通过右下角的按钮可以方便地切换页面的黑白风格，且代码的背景色也会对应地进行调整；</li><li>搜索功能：可以快速检索任意文章中的内容；</li><li>RSS订阅及发邮件的入口；</li><li>代码可以通过按钮一键复制；</li><li>Tex公式支持多行公式环境及交叉引用。</li></ol><p>其中，1需要Next主题版本8以上方可支持。然而GitHub上面的next最新只到7.8呀？万般困惑之下，<ahref="https://kuroha.vip/hexo/hexo_update.html">一个博客</a>告诉我，next的仓库天天换地址，换了之后还不通知它的老用户：</p><ul><li><p>2014-2017 =&gt;https://github.com/iissnan/hexo-theme-next</p></li><li><p>2018-2019 =&gt;https://github.com/theme-next/hexo-theme-next</p></li><li><p>2020- =&gt;https://github.com/next-theme/hexo-theme-next</p></li></ul><p>特别是后两个，我费了好大的劲才看清楚二者的区别。这种专门为了两个单词的顺序特意搬个家的做法，我看不懂，但大受震撼。</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231181833.png" /></center><p>关键的是，非要另起炉灶也不是不行，但好歹留一个指向新地址的指针啊。<del>你看微软，win11一出变着法子天天催你升级</del>这不禁让我又想到了一个上古的段子：</p><blockquote><p>某人收到了家里的飞鸽传书，通知他今年家里生意不错，因此刚搬了家，但是落款只有一个“爱你的父亲”</p></blockquote><p>很显然，这种做法是违反了最小权限，哦不，最小惊讶原则（Principle ofleast astonishment， POLA，亦作“principle of least surprise”）的。<ahref="https://en.wikipedia.org/wiki/Principle_of_least_astonishment">Wikipedia</a>定义它是“系统中的一个组件必须以绝大多数用户期待的方式工作”，是一个适用于用户界面（UserInterface，UI）开发或软件设计的原则。不过，POLA其实是一个非常宽泛的概念，可以用在我们生活中的方方面面。通俗来说，如果用户在使用一个东西的时候突然大呼“卧槽！”，“这**什么反人类设计！”，”啊我被雷到了！”之类的，那么他所面对的客体就违反了POLA。例如：</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231184924.png" /></center><p>此外，就算一个东西大抵上没有违背其表现出的功能，但如果它对使用者构成了非常大的困惑，那么它也违背了POLA。这是因为很多情况下困惑和惊讶的语境是共享的。例如，</p><blockquote><p>你是吃错药了吗？（困惑）CET-4居然没有考到100分！（惊讶）ta居然点名要求我赶出别人两倍的工作量！（惊讶）难道是ta觉得我之前做得太少吗？（困惑）</p></blockquote><p>特定到我们日常的UI交互上也是如此。例如，我之前遇到过Windows和小螃蟹的声卡驱动不兼容的问题，导致声音输出不正常。当我运行Windows的疑难解答程序时，它给我的反馈如下：</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231185224.png" /></center><p>当我惊讶于它为什么连不存在冲突的汉语句子都构造不出来的时候，或者是困惑于“音频增强是应该关掉还是打开比较好？”的时候，显然这里的UI就是违背了POLA的。显然，呈现给用户的语素应当是与其上下文一致，而不是冲突的。认识到这点，研究者也产生了一些科研成果（如，DeepIntent:Deep Icon-Behavior Learning for Detecting Intention-Behavior Discrepancyin Mobile Apps // CCS'19）。这项研究认为，UI中的图标和其近邻的文字一定会共享某种语义。</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231191136.png" /></center><p>以上图为例，定位的文字“location”和图标📍很表达的意思是相近的，甚至是相同的（获取位置）。如果在点击这个按钮后，应用没有获取位置，而是发送了一个SMS短信，那么这个应用就可能存在权限滥用的问题。另一方面，如果“location”旁边是一个📞的图标，本研究就无法应对了。不过，这种情形下用户显然会产生困惑，这不是实践中正常的做法。</p><p>综上，衡量是否满足POLA，应该以是否带来不必要的<strong>学习和理解成本</strong>为准绳。这也是为什么很多人会说，遵循POLA的最好方式，就是在现有基础上渐进式改动。TensorFlowV2就是一个良好的反面教材。</p><p>此外，语言也是如此。这里不是特指某种编程语言（Python 2 VS Python3？），而就是指我们人类表达、沟通使用的语言。中华上下五千年，汉字虽然经历了多轮迭代进化，从象形字到甲骨文，小篆、隶书楷书，从繁体到简体，但都是比较温和的进化。我们常用的汉字还是局限于一个很小的集合（两三千左右？），但这两三千字就可以不断组合产生新的成语习语，以及新的内涵。随着时代的进步，我们关注的重点只是<strong>有限</strong>的增量，因此大家都乐于并迅速接受。二简字，就又是一个反例。“宣传卩”，“早歺”……还有姥姥家装白糖的袋子上，赫然写着“内苎（内蒙）”，第一次看到时真是惊到了。</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231194956.png" /></center><p>好在汉语博大精深，这种问题最终都修复过来了。不过其他语言，可能就没那么幸运了……</p><blockquote><p>インターネットエクスプローラーナインの新しいグラフィックファンクションとパフォーマンスのインプルーブによって、リアルなエクスペリエンスがリアライズされます。</p></blockquote><blockquote><p>インターネット（internet）エクスプローラー（explorer）ナイン（nine）の新しい（new）グラフィック（graphic）ファンクション（function）とパフォーマンス（performance）のインプルーブ（improve）によって、リアル（real）なエクスペリエンス（experience）がリアライズ（realize）されます。</p></blockquote><blockquote><p>Internet Explorer 9的新图形功能和性能的改善使其实现了逼真的体验。</p></blockquote><p>再读个西方神话：</p><center><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211231201356.png" /></center><p>现在，我的内心毫无惊讶，心如止水。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最小惊讶（Least Astonishment）原则是好文明&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="瞎搞" scheme="https://daweix.github.io/categories/%E7%9E%8E%E6%90%9E/"/>
+    
+    
+    <category term="blog" scheme="https://daweix.github.io/tags/blog/"/>
+    
+    <category term="设计准则" scheme="https://daweix.github.io/tags/%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Make Cpp Work with Python</title>
+    <link href="https://daweix.github.io/2021/12/Make-Cpp-Work-with-Python/"/>
+    <id>https://daweix.github.io/2021/12/Make-Cpp-Work-with-Python/</id>
+    <published>2021-12-29T12:19:45.000Z</published>
+    <updated>2025-04-19T11:25:39.338Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>C++<del>Python</del>是世界上最<del>难学</del>好的语言！</p></blockquote><p>本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。</p><span id="more"></span><h2 id="前言">前言</h2><p>Python高度封装又非常易用，同时在很多情况下也是进行机器学习等任务的唯一选择。另一方面，如果调教得当，C++则在数据集的读取及预处理上具备性能上的显著优势。将二者作为“联合主演”，融入到一个project中是一个值得考虑的选项。</p><h2 id="开发工具">开发工具</h2><p>Python 没什么好说的。对于C++，如果是在Linux平台下，常用的工具是g++&amp; make，输出的动态库后缀是.so。在Windows下，我使用了Visual Studio -不得不说相比<code>apt install make gcc</code>，VS的安装配置痛苦许多，但VS也确实没什么好的替代（不知道为什么，我就是不想用MinGW或者CMake这种跨平台的工具）。</p><p>因此，这里我们使用VS编译出的供Python调用的C++库也是面向Windows的版本。我安装的<strong>使用C++的桌面开发</strong>组件的最小集合是（VS2022）：</p><ul><li>MSVC：C++编译器及库</li><li>Windows 10 SDK：包含了一些C++API在Windows平台的定义与实现（如cstring）。如果未安装，在调用一些NT与POSIX的实现不一样的C++API时无法顺利编译，提示找不到头文件。</li><li>实时调试器：就是字面意思</li></ul><h2 id="流程及注意事项">流程及注意事项</h2><ol type="1"><li>在VS中，新建C++项目，注意以下几条项目属性（项目-属性）<ul><li>常规-配置类型：动态库（.dll）</li><li>常规-C++语言标准</li><li>高级-目标文件拓展名：.dll</li><li>高级-使用调试库：发布时，选择否</li></ul></li><li>完成C++项目<ul><li>在开放给Python调用的函数前，添加如下装饰符，否则Python无法调用<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure></li><li>无需编写makefile：VS会帮你打理一切！</li></ul></li><li>生成项目<ul><li>发布时，选择Release</li><li>注意区分x86/x64。特别是当你使用了外部的库时</li></ul></li><li>在Python中，通过如下方式引入并调用C++-based content:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(path_to_dll)</span><br><span class="line">cpp.foo()</span><br></pre></td></tr></table></figure></li></ol><p>完成！</p><p>...真的会这么顺利吗？</p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211229215850.png" class=""></center><p>你可能遇到以下问题：</p><p><font color="red">OSError: [WinError 126]找不到指定的模块。</font></p><p>什么，找不到？不慌，反手一个<code>assert os.path.exists(path_to_dll)</code>。什么？文件路径没错？那是怎么会事呢？</p><p>这时候就要祭出一个VS自带的小工具 <code>dumpbin</code>（需要从VS命令行工具中调用）了。它可以对你要引入的dll进行分析，报告其依赖的其他dll。如黄色框所示，待引入的dll依赖于两个dll。至于其依赖的dll需要到哪里去找？如果你编译时引用了第三方的库（如lib静态库），那么第三方的库可能也提供了dll版本。而像kernel32.dll这类dll是Windows系统提供的，它们一般位于Windows的system32或SysWOW64目录下，将这些依赖复制一份到要引入的dll所在目录即可。</p><p><imgsrc="https://raw.githubusercontent.com/DaweiX/img/main/20211229220736.png" /></p><p>最后的最后，如何让Python识别到依赖的dll库文件呢？热心网友提供的一种建议是，使用<code>os.chdir</code>切换Python的工作目录到dll目录。然而，这种方式不太优雅，而且可能会导致无法import同一项目下自己写的其他模块。我认为的一种比较好的方式是<strong>临时</strong>修改系统环境变量：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在windows系统中，os.pathsep即为;</span></span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>] += os.pathsep + dll_path    </span><br><span class="line">dll_file = os.path.join(dll_path, <span class="string">&quot;dll_to_import.dll&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> (os.path.exists(dll_file))</span><br><span class="line"><span class="comment"># 传入的是文件名而不是完整路径，因为路径已经在PATH中</span></span><br><span class="line">cpp = ctypes.cdll.LoadLibrary(dll_file)</span><br></pre></td></tr></table></figure></p><p>现在应该没有问题了。至于C++怎么写，性能怎么优化……祝你好运！</p><h2 id="其他参考">其他参考</h2><p>这里有一份<ahref="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022">MS的文档</a>，但是说实在的，真的有人用VS写Python吗？还是那句话，特定于某种工具（如这里的VS）或平台、又有替代的方法，可能并不值得花功夫去学。<del>尤其是MS搞的这些东西</del></p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;C++&lt;del&gt;Python&lt;/del&gt;是世界上最&lt;del&gt;难学&lt;/del&gt;好的语言！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本文中，你将看到如何配置一个同时使用Python和C++两种语言的项目。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="环境配置" scheme="https://daweix.github.io/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="Python" scheme="https://daweix.github.io/tags/Python/"/>
+    
+    <category term="C++" scheme="https://daweix.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Build Your Own (Hexo) Blog</title>
+    <link href="https://daweix.github.io/2021/05/Build-Your-Own-Hexo-Blog/"/>
+    <id>https://daweix.github.io/2021/05/Build-Your-Own-Hexo-Blog/</id>
+    <published>2021-05-23T10:32:35.000Z</published>
+    <updated>2025-04-19T11:25:39.338Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>好记性不如烂笔头</p></blockquote><p>某个慵懒的周日，花了半小时建立了一个个人博客。真棒！<del>（后续美化花了好几天）</del></p><span id="more"></span><h2 id="坑总结">坑总结</h2><ul><li>Hexo init的目录名必须与GitHubrepo名一致（即<code>xx.GitHub.io</code>）</li><li>所有命令均在站点目录下执行，包括Hexo命令以及npm install等</li></ul><h2 id="不太详细的步骤">不太详细的步骤</h2><h3 id="step-1-环境配置">Step 1: 环境配置</h3><p>安装Node.js环境，安装git并配置（用户名、邮箱），配置GitHub（配置SSH密钥，新建publicrepo<code>xx.GitHub.io</code>）。如果你没配置过上述东东，那么完成了上述配置，所有工作可以说是完成了一大半。</p><h3 id="step-2站点搭建">Step 2：站点搭建</h3><p>安装Hexo并初始化。没什么好说的。非要说需要注意什么，那就是把init后面的参数设置为对应的（空）GitHubrepo的名字。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init xx.GitHub.io</span><br><span class="line">cd xx.GitHub.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><p>执行完毕后，在<code>_config.yml</code>里配置网站的基本属性，如标题，描述等。详细的配置项请参照<a href="https://hexo.io/" title="" target="_blank">Hexo官方网站</a>。这个网站也可以用来学习Hexo的其他知识。不过，这个网站提供的一些教程或demo也是粗略得可以（比如，Link并不是默认以新tab打开的，需要在<code>[external]</code>那个placeholder那里放个<code>true</code>。慢慢探索吧！）。执行完这步，你可以通过运行本地服务器<code>hexo server</code>或<code>hexo s</code>来启动位于本机4000端口的站点。</p><h3 id="step-3-发布站点">Step 3 发布站点</h3><p>还是照着官方doc，修改<code>_config.yml</code>中的Deployment节。随后，在站点目录通过<code>hexo deploy</code>或<code>hexo d</code>命令完成向GitHub的推送。访问<code>xx.GitHub.io</code>，全世界的人都会看到你的个人博客了！<del>我家也通上信息高速路辣！</del></p><center><img src="https://raw.githubusercontent.com/DaweiX/img/main/20211231143049.png" class="" width="160" height="160" title="互联网真是太精彩辣"></center><h2 id="其他你可能想做的">其他你可能想做的</h2><ul><li>更改站点外观：安装第三方Hexo主题。本站使用的是NexT</li><li>绑定自定义域名：（没钱，懒，所以没经验。想弄自行搜索吧！）</li><li>图床：可以建立另一个GitHubrepo作为图床，配合PicGo等工具来实现快速上传与链接获取</li></ul><h2 id="显示数学公式">显示数学公式</h2><p>As a special reminder,Markdown本身可以通过Tex语法插入公式<del>（通过图片来插入公式的都是异端！）</del>。在VSCode中，也有很多拓展支持解析、预览公式，甚至配合Tex输出正确嵌入公式的HTML或PDF（推荐拓展：MarkdownAll inOne）。然而，为了让Hexo完美支持Tex公式，需要使用其他基于Web的工具包。其中，最流行的是Mathjax。以NexT主题为例，首先在其<code>_config.yml</code>中打开Mathjax，对应的Section名为math。随后，在文档的导言区加入<code>mathjax: true</code>，即可为当前文档启用相关支持，其他没有公式的页面性能不会被影响。</p><p>现在，使用美元/双美元符号括住公式区域，就可以编写公式了。不过，你可能会发现这里对下划线的支持非常不友好，体现在具有嵌套下标、下标内容包含多个字符、具有多个下标等复杂情况。比如下面的公式：</p><p><spanclass="math display">\[\begin{equation}\underset{G}{min}\underset{D}{max}V(D,G)=\mathbb{E}_{x\sim p_\text{data}(x)}[log D(x)]+\mathbb{E}_{z \simz(z)}\end{equation}\]</span></p><p>如果上面是一坨code（或没有任何显示），那么接下来的方法都是无效的，你可以直接跳过了。如果它可以正常显示（可以通过右键进行其他操作），那么为了让你的博客也可以轻松支持这种鬼畜的公式而不必担心错误，那么还是多花几分钟看一下下面的解决方案吧。</p><p>首先，我们需要明确问题。之所以公式环境不会被正常解析，是因为其中的下划线与Markdown默认的下划线（斜体）冲突。为了不影响Tex语法，同时保证更换站点配置后仍能同时正常显示斜体和公式，故首先建议：<strong>在Markdown中斜体用星号，不要用下划线！</strong>那么接下来我们做的，就是要关闭Markdown的渲染引擎对下划线-斜体的支持。</p><h3 id="step-1">Step 1</h3><p>更换一下Hexo的渲染引擎： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure></p><h3 id="step-2">Step 2</h3><p>修改<code>\node_modules\kramed\lib\rules\inline.js</code>的两行（就是改俩正则表达式）：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*取消对大括号及正斜杠的转义*/</span></span><br><span class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span></span><br><span class="line"><span class="attr">escape</span>: <span class="regexp">/^\\([`*\[\]()#$+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="comment">/*取消对下划线-&gt;斜体的支持*/</span></span><br><span class="line"><span class="comment">/*竖线分隔开的两部分，分别匹配下划线和星号包围*/</span></span><br><span class="line"><span class="comment">//em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br><span class="line"><span class="attr">em</span>: <span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br></pre></td></tr></table></figure></p><h3 id="step-3">Step 3</h3><p>重启Hexo（hexo clean &amp;&amp;generate）。搞定！你可以尝试通过上面的那坨公式来验证。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;好记性不如烂笔头&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;某个慵懒的周日，花了半小时建立了一个个人博客。真棒！&lt;del&gt;（后续美化花了好几天）&lt;/del&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="瞎搞" scheme="https://daweix.github.io/categories/%E7%9E%8E%E6%90%9E/"/>
+    
+    
+    <category term="blog" scheme="https://daweix.github.io/tags/blog/"/>
+    
+  </entry>
+  
+</feed>
