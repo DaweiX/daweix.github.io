@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
         new Sheet("恋人たちの神話", "SD", "F", "e"),
         new Sheet("木もれ阳", "SD", "F", "e"),
         new Sheet("流行の云", "OC", "F", "e"),
-        new Sheet("BWV 999", "SD", "C", "e")
+        new Sheet("BWV 999", "SD", "C", "e"),
+        new Sheet("BWV 788", "SD", "C", "m")
       ].sort((a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
