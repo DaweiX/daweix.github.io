@@ -87,18 +87,26 @@ class PDFViewer {
   }
 }
 
-var { pdfjsLib } = globalThis;
-pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.mjs';
-var addr = decodeURIComponent(location.search);
-var f = addr.substring(addr.indexOf("n=") + 2, addr.length);
-document.title = f + " " + document.title;
-document.getElementsByClassName("post-title")[0].innerHTML = f;
-var url = "./pdf/" + f + ".pdf";
-var loadingTask = pdfjsLib.getDocument(url);
-loadingTask.promise.then(function (pdf) {
-  var div = document.getElementById("d");
-  var pdfViewer = new PDFViewer(div);
-  pdfViewer.feedDoc(pdf);
-}, function (err) {
-  console.error(err);
-});
+window.onload = () => {
+  // remove the paddings to make sheet larger
+  var b1 = document.querySelector(".main-inner");
+  var b2 = document.querySelector(".post-block");
+  b1.style.padding = "0px";
+  b2.style.padding = "0px";
+  // load and show sheet pdf
+  var { pdfjsLib } = globalThis;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.mjs';
+  var addr = decodeURIComponent(location.search);
+  var f = addr.substring(addr.indexOf("n=") + 2, addr.length);
+  document.title = f + " " + document.title;
+  document.getElementsByClassName("post-title")[0].innerHTML = f;
+  var url = "./pdf/" + f + ".pdf";
+  var loadingTask = pdfjsLib.getDocument(url);
+  loadingTask.promise.then(function (pdf) {
+    var div = document.getElementById("d");
+    var pdfViewer = new PDFViewer(div);
+    pdfViewer.feedDoc(pdf);
+  }, function (err) {
+    console.error(err);
+  });
+};
