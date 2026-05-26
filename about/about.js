@@ -1,5 +1,5 @@
 document.title = 'LI Jiawei';
-document.write("<div style='text-align:center'><span class='time'>Last update: " + document.lastModified + " (UTC+8)<span></div>");
+document.write("<div style='text-align:center'><span class='time'>Last update: " + "03/13/2026 16:19:33 (UTC+8)" + "<span></div>");
 document.addEventListener('DOMContentLoaded', function () {
     langEN = 'en';
     langZH = 'zh-CN';
