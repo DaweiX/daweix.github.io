@@ -36,8 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   class DataHandler {
     constructor() {
-      this._filter_ts = []
-      this._filter_vs = []
+      this._selections = new Map();
+      // 初始化：所有类别都选中
+      for (let type of Sheet.props) {
+        this._selections.set(type, new Set(Object.keys(varMap.get(type))));
+      }
+
       this._allSheets = [
         new Sheet("BWV 1004", "DD", "C", "h"),
         new Sheet("BWV 1006", "SD", "C", "h"),
@@ -80,27 +84,39 @@ document.addEventListener('DOMContentLoaded', function () {
       return this._allSheets;
     }
 
-    addFilter(type, value) {
-      this._filter_ts.push(type)
-      this._filter_vs.push(value)
+    isAllSelected(type) {
+      return this._selections.get(type).size === Object.keys(varMap.get(type)).length;
     }
 
-    delFilter(type, value) {
-      for (let i = 0; i < this._filter_ts.length; ++i) {
-        if (this._filter_ts[i] == type && this._filter_vs[i] == value) {
-          this._filter_ts.splice(i, 1);
-          this._filter_vs.splice(i, 1);
-          break;
-        }
+    toggleSelectAll(type) {
+      const allKeys = Object.keys(varMap.get(type));
+      if (this.isAllSelected(type)) {
+        this._selections.set(type, new Set());
+      } else {
+        this._selections.set(type, new Set(allKeys));
       }
+    }
+
+    toggleCategory(type, key) {
+      const selected = this._selections.get(type);
+      if (selected.has(key)) {
+        selected.delete(key);
+      } else {
+        selected.add(key);
+      }
+    }
+
+    isSelected(type, key) {
+      return this._selections.get(type).has(key);
     }
 
     runFilter() {
       var results = this._allSheets;
-      for (let i = 0; i < this._filter_ts.length; ++i) {
-        results = results.filter((s) => {
-          return s[this._filter_ts[i]] != this._filter_vs[i];
-        });
+      for (let type of Sheet.props) {
+        const selected = this._selections.get(type);
+        if (selected.size < Object.keys(varMap.get(type)).length) {
+          results = results.filter(s => selected.has(s[type]));
+        }
       }
       return results;
     }
@@ -118,11 +134,39 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   dh = new DataHandler();
-  
+  const buttonRefs = new Map(); // type -> {selectAll: element, categories: Map(key->element)}
+
+  function updateDisplay() {
+    const filtered = window.dh.runFilter();
+    for (let s of window.dh.allSheets) {
+      var e = document.getElementById(s.name.hashCode());
+      if (e) e.style.display = "none";
+    }
+    for (let s of filtered) {
+      var e = document.getElementById(s.name.hashCode());
+      if (e) e.style.display = "inline";
+    }
+  }
+
+  function updateButtonStyles(type) {
+    const refs = buttonRefs.get(type);
+    if (!refs) return;
+
+    // 更新全选按钮样式
+    const isAll = window.dh.isAllSelected(type);
+    refs.selectAll.style.boxShadow = isAll ? "#32CD32 1px 1px" : "black 1px 1px";
+
+    // 更新类别按钮样式
+    for (let [key, btn] of refs.categories) {
+      btn.style.boxShadow = window.dh.isSelected(type, key) ? "#32CD32 1px 1px" : "black 1px 1px";
+    }
+  }
+
   function init() {
     var selection = document.getElementById("selection");
-    for (p of Sheet.props) {
+    for (let p of Sheet.props) {
       var d = document.createElement("div");
+      d.style.marginBottom = "8px";
       var s = document.createElement("span");
       s.innerHTML = "<b>" + p.charAt(0).toUpperCase() + p.slice(1) + ":</b>";
       s.style.display = "inline-block";
@@ -130,6 +174,11 @@ document.addEventListener('DOMContentLoaded', function () {
       d.id = p;
       d.appendChild(s);
       selection.appendChild(d);
+
+      buttonRefs.set(p, {selectAll: null, categories: new Map()});
+
+      regSelectAllButton(p, d);
+
       var tmp = varMap.get(p);
       for (let t of Object.keys(tmp)) {
         regButton(tmp[t], p, t, d);
@@ -138,37 +187,38 @@ document.addEventListener('DOMContentLoaded', function () {
     addAllSheets();
   }
 
+  function regSelectAllButton(type, parent) {
+    var a = document.createElement("a");
+    a.onclick = () => {
+      window.dh.toggleSelectAll(type);
+      updateButtonStyles(type);
+      updateDisplay();
+    };
+    var span = document.createElement("span");
+    span.innerText = "All";
+    span.className = type + "-all";
+    a.className = "sa";
+    a.style.boxShadow = "#32CD32 1px 1px";
+    a.appendChild(span);
+    parent.appendChild(a);
+    buttonRefs.get(type).selectAll = a;
+  }
+
   function regButton(text, type, key, parent) {
     var a = document.createElement("a");
     a.onclick = () => {
-      var playlist = document.getElementById("playlist");
-      for (i of playlist.childNodes) {
-        i.style.display = "none";
-      }
-      if (a.style.boxShadow == "black 1px 1px") {
-        // del filter
-        window.dh.delFilter(type, key);
-        for (s of window.dh.runFilter()) {
-          var e = document.getElementById(s.name.hashCode());
-          e.style.display = "inline";
-        }
-        a.style.boxShadow = "#32CD32 1px 1px";
-      } else {
-        // add filter
-        window.dh.addFilter(type, key);
-        for (s of window.dh.runFilter()) {
-          var e = document.getElementById(s.name.hashCode());
-          e.style.display = "inline";
-        }
-        a.style.boxShadow = "black 1px 1px";
-      }
+      window.dh.toggleCategory(type, key);
+      updateButtonStyles(type);
+      updateDisplay();
     };
     var span = document.createElement("span");
     span.innerText = text;
     span.className = type;
     a.className = "sa";
+    a.style.boxShadow = "#32CD32 1px 1px";
     a.appendChild(span);
     parent.appendChild(a);
+    buttonRefs.get(type).categories.set(key, a);
   }
 
   function addAllSheets() {
