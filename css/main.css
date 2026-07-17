@@ -1286,7 +1286,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #fe1d57;
+    background: #ffff6b;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2879,4 +2879,12 @@ header.header {
 }
 .post-body .note {
   background: var(--table-row-hover-bg-color);
+}
+.tag-cloud-tags a {
+  border-bottom: 1px solid var(--text-color, #555);
+  color: var(--text-color, #555);
+}
+.tag-cloud-tags a:hover {
+  color: var(--link-hover-color, #4caf50);
+  border-bottom-color: var(--link-hover-color, #4caf50);
 }

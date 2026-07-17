@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/guitar-solid.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/guitar-solid.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/guitar-solid.svg">
+  <link rel="mask-icon" href="/images/guitar-solid.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/pace-js@1.2.4/themes/green/pace-theme-minimal.css">
+  <script src="https://unpkg.com/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"daweix.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.28.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"atom-one-light","dark":"atom-one-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":6,"unescape":true,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content=".at-wrap {   width: 100%;   min-height: 500px;   position: relative; }  &#x2F;* 播放器面板样式 *&#x2F; .player-panel {   position: fixed;   bottom: 12px;   right: 64px;   width: 380px;   height: 32px;   background:">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sheet Viewer">
+<meta property="og:url" content="https://daweix.github.io/score/osmd.html">
+<meta property="og:site_name" content="DaweiX&#39;s Harbor">
+<meta property="og:description" content=".at-wrap {   width: 100%;   min-height: 500px;   position: relative; }  &#x2F;* 播放器面板样式 *&#x2F; .player-panel {   position: fixed;   bottom: 12px;   right: 64px;   width: 380px;   height: 32px;   background:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-17T12:50:39.000Z">
+<meta property="article:modified_time" content="2026-07-17T08:35:57.923Z">
+<meta property="article:author" content="DaweiX">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://daweix.github.io/score/osmd">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"https://daweix.github.io/score/osmd.html","path":"score/osmd.html","title":"Sheet Viewer"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Sheet Viewer | DaweiX's Harbor
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://unpkg.com/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="DaweiX's Harbor" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">DaweiX's Harbor</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">21</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a></li><li class="menu-item menu-item-score"><a href="/score/" rel="section"><i class="fa fa-music fa-fw"></i>乐谱<span class="badge">34</span></a></li><li class="menu-item menu-item-misc"><a href="/misc/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>随记</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DaweiX"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">DaweiX</p>
+  <div class="site-description" itemprop="description">Love and peace. Tech, game, art...</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/daweix" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;daweix" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:daweix@outlook.com" title="E-Mail → mailto:daweix@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/daweix" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;daweix" rel="noopener me" target="_blank"><i class="fab fa-steam fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://scholar.google.com/citations?user=GU0BRk8AAAAJ" title="Google Scholar → https:&#x2F;&#x2F;scholar.google.com&#x2F;citations?user&#x3D;GU0BRk8AAAAJ" rel="noopener me" target="_blank"><i class="fa fa-graduation-cap fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Sheet Viewer
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          
+<style type="text/css">
+.at-wrap {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+}
+
+/* 播放器面板样式 */
+.player-panel {
+  position: fixed;
+  bottom: 12px;
+  right: 64px;
+  width: 380px;
+  height: 32px;
+  background: color-mix(in srgb, var(--text-color) 60%, transparent);
+  border: none;
+  border-radius: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  transition: transform 0.3s ease, visibility 0.3s ease;
+  transform: translateX(100%);
+  visibility: hidden;
+}
+
+/* 面板展开状态 */
+.player-panel.active {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* 面板内的按钮容器 */
+.panel-controls {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 9999;
+  background: transparent;
+}
+
+/* 播放器控制按钮通用样式 (循环、播放/暂停、停止) */
+.player-control-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* 防止按钮被进度条挤压 */
+}
+.player-control-btn:hover {
+  background: rgba(0,0,0,0.1);
+}
+/* 按钮点击后的强调状态 */
+.player-control-btn.active {
+  background: var(--link-hover-color);
+}
+
+/* 进度条样式 */
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 64px;
+  background-color: var(--link-hover-color);
+}
+/* 时间显示样式 */
+.time-display {
+  font-size: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--link-hover-color);
+  filter: invert(1);
+}
+
+/* 右侧 Pin 按钮 */
+.pin-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+/* Pin 按钮选中状态 */
+.pin-btn.active {
+  background: var(--link-hover-color);
+}
+
+/* 切换按钮样式 */
+.toggle-player-btn {
+  position: fixed;
+  bottom: 12px;
+  right: 32px;
+  width: 32px;
+  height: 32px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.toggle-player-btn:hover {
+  background: #45a049;
+}
+
+.at-cursor-bar {
+  /* Defines the color of the bar background when a bar is played */
+  background: color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+.at-selection div {
+  /* Defines the color of the selection background */
+  background: background: color-mix(in srgb, var(--link-hover-color) 10%, transparent);
+}
+
+.at-cursor-beat {
+  /* Defines the beat cursor */
+  background: rgba(69, 160, 73, 0.3);
+  width: 3px;
+}
+
+.at-highlight * {
+  /* Defines the color of the music symbols when they are being played (svg) */
+  fill: var(--link-hover-color);
+  stroke: var(--link-hover-color);
+}
+.ctrl-icn {
+  width: 16px;
+  height: 16px;
+  fill: var(--link-hover-color);
+  filter: invert(1);
+}
+#staveToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 7px 0 7px 0;
+  font-size: 10px;
+  color: var(--link-hover-color);
+  filter: invert(1);
+}
+#staveToggleBtn::before {
+  content: "";
+  width: 50%;
+  background-color: var(--link-hover-color);
+  height: 1.3px;
+}
+#staveToggleBtn::after {
+  content: "";
+  width: 50%;
+  background-color: var(--link-hover-color);
+  height: 1.3px;
+}
+g {
+  fill: var(--link-hover-color);
+}
+path {
+  fill: var(--link-hover-color);
+}
+.at-surface-svg rect[width^="1."] {
+  fill: var(--link-hover-color);
+}
+text {
+  fill: var(--link-hover-color);
+}
+</style>
+
+<div class="at-wrap">
+  <div class="at-overlay">
+      Music sheet is loading
+  </div>
+  <div class="at-main"></div>
+  
+  <!-- 播放器控制面板 -->
+  <div class="player-panel" id="playerPanel">
+    <div class="panel-controls">
+     <!-- 3. 播放/暂停按钮 -->
+      <button class="player-control-btn" id="playPauseBtn" title="Play/Pause">
+        <!-- 默认显示播放图标 -->
+        <svg id="playIcon" class="ctrl-icn" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- 暂停图标（默认隐藏） -->
+        <svg id="pauseIcon" class="ctrl-icn" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <!-- 4. 停止按钮 -->
+      <button class="player-control-btn" id="stopBtn" title="Stop">
+        <svg class="ctrl-icn" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12"/></svg>
+      </button>
+      <!-- 2. 播放进度条 -->
+      <progress value="0" max="100" class="progress-bar" id="progressBar"></progress>
+      <span class="time-display" id="songPosition">0:00</span>
+      <!-- Stave Toggle Button -->
+      <button class="player-control-btn" id="staveToggleBtn" title="Toggle Stave Display">
+        5|6
+      </button>
+      <!-- 1. 循环按钮 -->
+      <button class="player-control-btn" id="countBtn" title="Count In">
+        <svg class="ctrl-icn" viewBox="0 0 24 24"><path d="M6 2v6l4 4-4 4v6h12v-6l-4-4 4-4V2H6zm2 2h8v3.17L12 11 8 7.17V4zm0 16v-3.17L12 13l4 3.17V20H8z"/></svg>
+      </button>
+      <button class="player-control-btn" id="metroBtn" title="Metronome">
+        <svg class="ctrl-icn" viewBox="0 0 24 24"><path 
+        d="M12 3 L21 19 L3 19 Z M12 5 L5 17 L19 17 Z M12 3 L12 1 M14 1 L16 3 M21 4 L13 12 M22 3 L23 4 L17 10 L16 9 Z"/></svg>
+      </button>
+      <button class="player-control-btn" id="loopBtn" title="Looping">
+        <svg class="ctrl-icn" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+      </button>
+      <!-- Pin Button -->
+      <button class="pin-btn" id="pinBtn" title="Pin Panel">
+        <svg class="ctrl-icn" viewBox="0 0 24 24"><path d="M6 3.6C6 2.94 6.54 2.4 7.2 2.4H16.8C17.46 2.4 18 2.94 18 3.6C18 4.26 17.46 4.8 16.8 4.8H15.69L16.08 9.83C17.47 10.62 18.55 11.94 19.01 13.57L19.16 14.07C19.26 14.43 19.19 14.82 18.96 15.12C18.74 15.43 18.38 15.6 18 15.6H6C5.62 15.6 5.27 15.42 5.04 15.12C4.82 14.82 4.74 14.43 4.85 14.07L4.99 13.57C5.45 11.94 6.53 10.62 7.92 9.83L8.31 4.8H7.2C6.54 4.8 6 4.26 6 3.6zM10.8 17.4H13.2V21.6C13.2 22.26 12.66 22.8 12 22.8C11.34 22.8 10.8 22.26 10.8 21.6L10.8 17.4z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 触发按钮 -->
+  <button class="toggle-player-btn" id="togglePlayerBtn" title="Toggle Player">
+    <svg viewBox="0 0 24 24">
+      <path d="M23.869 18.197c-0.4 1.28-1.7 2-3.444 2.244-1.531 0.21-2.806 0.263-4.031-0.477-1.494-0.94-1.512-2.496-0.169-3.328 1.063-0.758 2.556-0.914 4.8-1.207 0.375-0.052 0.7-0.117 0.975-0.348 0.4-0.338 0.275-0.192 0.275-7.622 0-0.525-0.344-0.67-1.063-0.577-0.513 0.066-11.606 1.617-11.606 1.617-0.638 0.103-0.838 0.244-0.838 0.781 0 10.973 0.069 10.461-0.156 11.191-0.263 0.851-0.963 1.492-1.888 1.848-1.05 0.435-2.95 0.627-3.963 0.487-2.7-0.379-3.65-2.711-1.819-4.047 1.063-0.758 2.556-0.914 4.8-1.207 0.375-0.052 0.7-0.117 0.975-0.348 0.631-0.538 0.113-11.998 0.325-12.633 0.05-0.244 0.188-0.449 0.444-0.604 0.263-0.164 0.738-0.258 0.838-0.258 12.75-1.787 14.306-2.016 14.525-2.016 0.719-0.038 1.131 0.281 1.131 0.824 0.013 16.106 0.069 15.242-0.011 15.827z"/>
+    </svg>
+  </button>
+</div>
+
+<script src="https://unpkg.com/@coderline/alphatab@latest/dist/alphaTab.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var addr = decodeURIComponent(location.search);
+    var f = addr.substring(addr.indexOf("n=") + 2, addr.length);
+    document.title = f + " " + document.title;
+    var titleElement = document.getElementsByClassName("post-title")[0];
+    if (titleElement) {
+      titleElement.innerHTML = f.split(".")[0];
+    }
+
+    const wrapper = document.querySelector(".at-wrap");
+    const main = wrapper.querySelector(".at-main");
+    const settings = new alphaTab.Settings();
+    settings.core.engine = "svg";
+    settings.display.staveProfile = alphaTab.StaveProfile.ScoreTab; 
+    settings.display.scale = 1.0; 
+    settings.display.firstStaffPaddingLeft = 2;
+    settings.display.padding = [8, 8];
+    // let hex = getComputedStyle(document.documentElement).getPropertyValue('--link-hover-color').trim().replace('#', '');
+    // if (hex.length === 3) {
+    //   hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    // }
+    // console.log(hex);
+    // let colorStr = "#00FF00";
+    // let c = alphaTab.model.Color.fromJson(parseInt(hex, 16) | 0xFF000000); // no alpha
+    // console.log(c);
+    // settings.display.resources.barSeparatorColor = c;
+    // settings.display.resources.mainGlyphColor = c;
+    // settings.display.resources.staffLineColor = c;
+    settings.notation.elements.set(alphaTab.NotationElement.ScoreTitle, false);
+    settings.notation.elements.set(alphaTab.NotationElement.ScoreSubTitle, false);
+    settings.notation.elements.set(alphaTab.NotationElement.TrackNames, false);
+    settings.notation.elements.set(alphaTab.NotationElement.ChordDiagrams, false);
+    settings.notation.elements.set(alphaTab.NotationElement.ScoreArtist, false);
+    settings.notation.elements.set(alphaTab.NotationElement.ScoreAlbum, false);
+    // settings.notation.elements.set(alphaTab.NotationElement.ScoreWordsAndMusic, false);
+    settings.notation.elements.set(alphaTab.NotationElement.ScoreCopyright, false);
+    settings.notation.elements.EffectFingering = true;
+    settings.notation.fingeringMode = alphaTab.FingeringMode.ScoreDefault;
+    settings.notation.notationMode = alphaTab.NotationMode.GuitarPro;
+    // player
+    settings.player.enablePlayer = true;
+    settings.player.soundFont = 'https://unpkg.com/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2';
+    settings.player.scrollElement = document.body;
+    
+    const api = new alphaTab.AlphaTabApi(main, settings);
+    api.load("./xml/" + f);
+    
+    const overlay = wrapper.querySelector(".at-overlay");
+    const staveToggleBtn = document.getElementById('staveToggleBtn');
+    let hasScore = false;
+    let hasTab = false;
+    let currentStaveProfile = alphaTab.StaveProfile.ScoreTab;
+
+    api.scoreLoaded.on(score => {
+      if (score && score.tracks && score.tracks.length > 0) {
+        const track = score.tracks[0];
+        if (track.staves) {
+          hasScore = track.staves.some(s => s.showStandardNotation !== false);
+          hasTab = track.staves.some(s => s.showTablature !== false);
+        }
+      }
+      if (!hasScore && hasTab) {
+        currentStaveProfile = alphaTab.StaveProfile.Tab;
+        staveToggleBtn.style.cursor = 'not-allowed';
+        staveToggleBtn.disabled = true;
+      } else if (hasScore && !hasTab) {
+        currentStaveProfile = alphaTab.StaveProfile.Score;
+        staveToggleBtn.style.cursor = 'not-allowed';
+        staveToggleBtn.disabled = true;
+      }
+      api.settings.display.staveProfile = currentStaveProfile;
+      api.render();
+      updateStaveToggleBtnTitle();
+    });
+
+    api.renderStarted.on(() => {
+        overlay.style.display = 'flex';
+    });
+    api.renderFinished.on(() => {
+        overlay.style.display = 'none';
+        console.log('Rendering finished');
+    });
+    api.error.on((e) => {
+        console.error(e);
+    });
+
+    function updateStaveToggleBtnTitle() {
+      let title = '';
+      let inner = '';
+      switch (currentStaveProfile) {
+        case alphaTab.StaveProfile.ScoreTab:
+          inner = '5|6';
+          title = "Both Score & Tab";
+          break;
+        case alphaTab.StaveProfile.Score:
+          inner = '5';
+          title = "Score";
+          break;
+        case alphaTab.StaveProfile.Tab:
+          inner = '6';
+          title = "Tab";
+          break;
+        default:
+          inner = '5|6';
+          title = "Both Score & Tab";
+          break;
+      }
+      staveToggleBtn.innerHTML = inner;
+      staveToggleBtn.title = title;
+    }
+
+    // --- 播放器面板交互逻辑 ---
+    const toggleBtn = document.getElementById('togglePlayerBtn');
+    const playerPanel = document.getElementById('playerPanel');
+    const pinBtn = document.getElementById('pinBtn');
+    let isPinned = false; // 记录 Pin 状态
+
+    // 1. 切换面板显示/隐藏
+    toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止触发 document 的点击事件
+        playerPanel.classList.toggle('active');
+    });
+
+    // 2. Pin 按钮点击逻辑
+    pinBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止触发 document 的点击事件
+        isPinned = !isPinned;
+        if (isPinned) {
+            pinBtn.classList.add('active');
+        } else {
+            pinBtn.classList.remove('active');
+        }
+    });
+
+    // 3. 点击面板外部自动收起逻辑
+    document.addEventListener('click', function(e) {
+        // 如果面板处于展开状态，且没有被 Pin 住
+        if (playerPanel.classList.contains('active') && !isPinned) {
+            // 如果点击的目标不在面板内部，也不在触发按钮上
+            if (!playerPanel.contains(e.target) && !toggleBtn.contains(e.target)) {
+                playerPanel.classList.remove('active');
+            }
+        }
+    });
+
+    function formatDuration(milliseconds) {
+      let seconds = milliseconds / 1000;
+      const minutes = (seconds / 60) | 0;
+      seconds = (seconds - minutes * 60) | 0;
+      return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0")
+      );
+    }
+
+    // --- 播放器控制按钮逻辑 ---
+    const loopBtn = document.getElementById('loopBtn');
+    const countBtn = document.getElementById('countBtn');
+    const metroBtn = document.getElementById('metroBtn');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const progressBar = document.getElementById('progressBar');
+    const songPosition = document.getElementById('songPosition');
+
+    // stave toggle btn
+    staveToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (staveToggleBtn.disabled) return;
+
+        const profiles = [];
+        if (hasScore && hasTab) {
+          profiles.push(alphaTab.StaveProfile.ScoreTab);
+          profiles.push(alphaTab.StaveProfile.Score);
+          profiles.push(alphaTab.StaveProfile.Tab);
+        } else if (hasScore) {
+          profiles.push(alphaTab.StaveProfile.Score);
+        } else if (hasTab) {
+          profiles.push(alphaTab.StaveProfile.Tab);
+        }
+
+        const currentIndex = profiles.indexOf(currentStaveProfile);
+        const nextIndex = (currentIndex + 1) % profiles.length;
+        currentStaveProfile = profiles[nextIndex];
+        console.log(currentStaveProfile);
+        api.settings.display.staveProfile = currentStaveProfile;
+        api.updateSettings();
+        api.render();
+        updateStaveToggleBtnTitle();
+    });
+
+    // count btn
+    countBtn.addEventListener('click', function(e) {
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+            api.countInVolume = 1;
+        } else {
+            api.countInVolume = 0;
+        }
+    });
+
+    // metro btn
+    metroBtn.addEventListener('click', function(e) {
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+            api.metronomeVolume = 1;
+        } else {
+            api.metronomeVolume = 0;
+        }
+    });
+
+    // 循环按钮点击
+    loopBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+        api.isLooping = this.classList.contains('active');
+    });
+
+    // 播放/暂停按钮点击
+    playPauseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        api.playPause(); 
+        const isPlaying = playIcon.style.display !== 'none'; 
+        if (isPlaying) {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        } else {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
+    });
+
+    // 停止按钮点击
+    stopBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        api.stop();
+        // 重置图标为播放状态
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        // 重置进度条
+        progressBar.value = 0;
+    });
+    let previousTime = -1;
+    api.playerPositionChanged.on((e) => {
+      // reduce number of UI updates to second changes.
+      const currentSeconds = (e.currentTime / 1000) | 0;
+      if (currentSeconds == previousTime) {
+        return;
+      }
+      songPosition.innerText =
+        formatDuration(e.currentTime) + " / " + formatDuration(e.endTime);
+        if (e.currentTime == 0) {
+          progressBar.value = 0;
+        } else {
+          progressBar.value = Math.ceil((e.currentTime / e.endTime) * 100);
+        }
+    });
+    api.playerReady.on(() => {
+        progressBar.value = 0;
+    });
+});
+</script>
+
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">DaweiX</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">88k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:27</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/daweix" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '💡',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"daweixs","repo":"review","client_id":"0ddc8d59ad683da82541","client_secret":"c62d66a5dd78f3f4522afe3e62d11427d3077830","admin_user":"daweixs","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"body":null,"js":{"url":"https://unpkg.com/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"04bc8e48766211b4b06995a88fbe19ee"}</script>
+<script src="/js/third-party/comments/gitalk.js" defer></script>
+
+</body>
+</html>

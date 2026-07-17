@@ -1,5 +1,3 @@
-/* global NexT, CONFIG, mermaid */
-
 document.addEventListener('page:loaded', async () => {
   await NexT.utils.getScript(CONFIG.mermaid.js, {
     condition: window.mermaid

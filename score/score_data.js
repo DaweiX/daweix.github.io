@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
   class Sheet {
     static props = ["tune", "genre", "level"]
 
-    constructor(name, tune, genre, level) {
+    constructor(name, tune, genre, level, type, filename) {
       this.name = name;
       this.tune = tune;
       this.genre = genre;
       this.level = level;
+      this.type = type;
+      this.filename = filename;
     }
   }
 
@@ -43,32 +45,35 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       this._allSheets = [
-        new Sheet("BWV 1004", "DD", "C", "h"),
-        new Sheet("BWV 1006", "SD", "C", "h"),
-        new Sheet("BWV 846", "SD", "C", "e"),
-        new Sheet("Canon In D", "DD", "C", "e"),
-        new Sheet("Nocturne In E", "SD", "C", "m"),
-        new Sheet("BWV 1007", "DD", "C", "e"),
-        new Sheet("雨降る窓辺で", "OD", "F", "e"),
-        new Sheet("Adieu", "SD", "F", "e"),
-        new Sheet("Misty Eyes", "SD", "F", "e"),
-        new Sheet("暁の車", "SD", "A", "e"),
-        new Sheet("La Catedral", "SD", "C", "h"),
-        new Sheet("洋娃娃的梦", "SD", "C", "m"),
-        new Sheet("estudio de concierto", "SD", "C", "h"),
-        new Sheet("estudio de concierto No.2", "SD", "C", "h"),
-        new Sheet("Memories of the Eternal Oasis", "SD", "A", "m"),
-        new Sheet("Grande Ouverture", "SD", "C", "h"),
-        new Sheet("Asturias", "SD", "C", "h"),
-        new Sheet("Granada", "SD", "C", "h"),
-        new Sheet("HWV 432", "SD", "C", "h"),
-        new Sheet("Lobos Prelude No.1", "SD", "C", "m"),
-        new Sheet("鲸", "OD", "F", "e"),
-        new Sheet("恋人たちの神話", "SD", "F", "e"),
-        new Sheet("木もれ阳", "SD", "F", "e"),
-        new Sheet("流行の云", "OC", "F", "e"),
-        new Sheet("BWV 999", "SD", "C", "e"),
-        new Sheet("BWV 788", "SD", "C", "m")
+        new Sheet("BWV 1004", "DD", "C", "h", "pdf", "BWV 1004"),
+        new Sheet("BWV 1006", "SD", "C", "h", "pdf", "BWV 1006"),
+        new Sheet("BWV 846", "SD", "C", "e", "pdf", "BWV 846"),
+        new Sheet("Canon In D", "DD", "C", "e", "pdf", "Canon In D"),
+        new Sheet("Nocturne In E", "SD", "C", "m", "pdf", "Nocturne In E"),
+        new Sheet("BWV 1007", "DD", "C", "e", "pdf", "BWV 1007"),
+        new Sheet("雨降る窓辺で", "OD", "F", "e", "pdf", "雨降る窓辺で"),
+        new Sheet("Adieu", "SD", "F", "e", "pdf", "Adieu"),
+        new Sheet("Misty Eyes", "SD", "F", "e", "pdf", "Misty Eyes"),
+        new Sheet("暁の車", "SD", "A", "e", "pdf", "暁の車"),
+        new Sheet("La Catedral", "SD", "C", "h", "pdf", "La Catedral"),
+        new Sheet("洋娃娃的梦", "SD", "C", "m", "pdf", "洋娃娃的梦"),
+        new Sheet("estudio de concierto", "SD", "C", "h", "pdf", "estudio de concierto"),
+        new Sheet("estudio de concierto No.2", "SD", "C", "h", "pdf", "estudio de concierto No.2"),
+        new Sheet("Memories of the Eternal Oasis", "SD", "A", "m", "pdf", "Memories of the Eternal Oasis"),
+        new Sheet("Grande Ouverture", "SD", "C", "h", "pdf", "Grande Ouverture"),
+        new Sheet("Asturias", "SD", "C", "h", "pdf", "Asturias"),
+        new Sheet("Granada", "SD", "C", "h", "pdf", "Granada"),
+        new Sheet("HWV 432", "SD", "C", "h", "pdf", "HWV 432"),
+        new Sheet("Lobos Prelude No.1", "SD", "C", "m", "pdf", "Lobos Prelude No.1"),
+        new Sheet("鲸", "OD", "F", "e", "pdf", "鲸"),
+        new Sheet("恋人たちの神話", "SD", "F", "e", "pdf", "恋人たちの神話"),
+        new Sheet("木もれ阳", "SD", "F", "e", "pdf", "木もれ阳"),
+        new Sheet("流行の云", "OC", "F", "e", "pdf", "流行の云"),
+        new Sheet("BWV 999", "SD", "C", "e", "pdf", "BWV 999"),
+        new Sheet("BWV 788", "SD", "C", "m", "pdf", "BWV 788"),
+        new Sheet("阿拉伯风格绮想曲", "DD", "C", "m", "xml", "阿拉伯风格绮想曲.gp"),
+        new Sheet("美しきもの", "SD", "A", "m", "xml", "美しきもの.gp"),
+        new Sheet("雪の華", "SD", "A", "e", "xml", "雪の華.gp"),
       ].sort((a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
@@ -231,7 +236,8 @@ document.addEventListener('DOMContentLoaded', function () {
       a.style.margin = "0 4px"
       a.style.textDecoration = "none"
       a.onclick = () => {
-        window.open("viewer?n=" + encodeURIComponent(name), "_blank");
+        var url = f.type === "pdf" ? "viewer?n=" : "osmd?n=";
+        window.open(url + encodeURIComponent(f.filename), "_blank");
       };
       a.onmouseenter = () => {
         a.style.backgroundColor = "var(--menu-item-bg-color)";
